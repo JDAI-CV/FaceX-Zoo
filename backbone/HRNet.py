@@ -1,7 +1,7 @@
 """
 @author: Hanbin Dai, Jun Wang
-@date: 20201019     
-@contact: jun21wangustc@gmail.com
+@date: 20201020   
+@contact: daihanbin.ac@gmail.com, jun21wangustc@gmail.com
 """
 
 # based on:
