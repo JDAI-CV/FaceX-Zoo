@@ -1,5 +1,5 @@
 """
-@author: Shuo Wang, Jun Wang
+@author: Jun Wang
 @date: 20201019
 @contact: jun21wangustc@gmail.com
 """
