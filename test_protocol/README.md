@@ -83,4 +83,4 @@ Note:
 2)In order to evaluate the accuracy of two ensembled models (by concatenating features), you should first concatenate the features of two models by [feat_concat.py](utils/feat_concat.py), and then set 'is_concat' in [test_megaface.sh](test_megaface.sh) to 1.  
 
 ## More tips
-(1) Please make sure that the 'model_loader.load_model()' can load your model successfully. Otherwise you should implement your 'load_model()' method in [model_loader.py](utils/model_loader.py).  
+* Please make sure that the 'model_loader.load_model()' can load your model successfully. Otherwise you should implement your 'load_model()' method in [model_loader.py](utils/model_loader.py).  
