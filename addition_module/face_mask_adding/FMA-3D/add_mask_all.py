@@ -1,5 +1,5 @@
 """
-@author: Yinglu Liu, Jun Wang
+@author: Yinglu Liu, Mingcan Xiang, Jun Wang
 @date: 20201012
 @contact: jun21wangustc@gmail.com
 """
