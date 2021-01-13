@@ -1,0 +1,9 @@
+{
+    "model_type" : "pfld mask face landmark nets",
+    "model_info" : "some model info",
+    "model_file" : "face_landmark_pfld.pkl",
+    "release_date" : "20201229",
+    "input_height" : 112,
+    "input_width" : 112
+}
+

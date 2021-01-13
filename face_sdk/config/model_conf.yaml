@@ -1,0 +1,9 @@
+non-mask:
+    face_detection: face_detection_1.0
+    face_alignment: face_alignment_1.0
+    face_recognition: face_recognition_1.0
+mask:
+    face_detection: face_detection_2.0
+    face_alignment: face_alignment_2.0
+    face_recognition: face_recognition_2.0
+    

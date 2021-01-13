@@ -1,0 +1,15 @@
+{
+    "model_type" : "retina face detect nets",
+    "model_info" : "some model info",
+    "model_file" : "face_detection_retina.pkl",
+    "release_date" : "20201019",
+    "input_height" : 120,
+    "input_width" : 120,
+    "min_sizes": [[16, 32], [64, 128], [256, 512]],
+    "steps": [8, 16, 32],
+    "variance": [0.1, 0.2],
+    "in_channel": 256,
+    "out_channel": 256,
+    "confidence_threshold": 0.7
+}
+

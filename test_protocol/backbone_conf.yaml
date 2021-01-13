@@ -1,0 +1,97 @@
+MobileFaceNet:
+    feat_dim: 512
+    #out_h: 4
+    out_h: 7
+    out_w: 7
+
+ResNet:
+    depth: 152
+    drop_ratio: 0.4
+    net_mode: ir_se
+    feat_dim: 512
+    out_h: 7
+    out_w: 7
+
+EfficientNet:
+    width: 1.0
+    depth: 1.0
+    image_size: 110
+    drop_ratio: 0.2
+    out_h: 7
+    out_w: 7
+    feat_dim: 512
+
+HRNet:
+  NAME: cls_hrnet
+  out_h: 7
+  out_w: 7
+  feat_dim: 512
+  IMAGE_SIZE:
+    - 112
+    - 112
+  EXTRA:
+    STAGE1:
+      NUM_MODULES: 1
+      NUM_RANCHES: 1
+      BLOCK: BOTTLENECK
+      NUM_BLOCKS:
+      - 4
+      NUM_CHANNELS:
+      - 64
+      FUSE_METHOD: SUM
+    STAGE2:
+      NUM_MODULES: 1
+      NUM_BRANCHES: 2
+      BLOCK: BASIC
+      NUM_BLOCKS:
+      - 4
+      - 4
+      NUM_CHANNELS:
+      - 18
+      - 36
+      FUSE_METHOD: SUM
+    STAGE3:
+      NUM_MODULES: 4
+      NUM_BRANCHES: 3
+      BLOCK: BASIC
+      NUM_BLOCKS:
+      - 4
+      - 4
+      - 4
+      NUM_CHANNELS:
+      - 18
+      - 36
+      - 72
+      FUSE_METHOD: SUM
+    STAGE4:
+      NUM_MODULES: 3
+      NUM_BRANCHES: 4
+      BLOCK: BASIC
+      NUM_BLOCKS:
+      - 4
+      - 4
+      - 4
+      - 4
+      NUM_CHANNELS:
+      - 18
+      - 36
+      - 72
+      - 144
+      FUSE_METHOD: SUM
+
+GhostNet:
+    feat_dim: 512
+
+AttentionNet:
+    stage1_modules: 1
+    stage2_modules: 1
+    stage3_modules: 1
+    feat_dim: 512
+    out_h: 7
+    out_w: 7
+
+TF-NAS:
+    feat_dim: 512
+    drop_ratio: 0.2
+    out_h: 7
+    out_w: 7
