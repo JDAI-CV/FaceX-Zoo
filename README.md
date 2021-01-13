@@ -27,11 +27,11 @@ See [README.md](addition_module/face_mask_adding/FMA-3D/README.md) in [FMA-3D](a
 # License
 FaceX-Zoo is released under the [Apache License, Version 2.0](LICENSE).
 
-# References
-This repo is mainly inspired by [InsightFace](https://github.com/deepinsight/insightface), [InsightFace_Pytorch](https://github.com/TreB1eN/InsightFace_Pytorch), [face.evoLVe](https://github.com/ZhaoJ9014/face.evoLVe.PyTorch/blob/master/README.md).
+# Acknowledgements
+This repo is mainly inspired by [InsightFace](https://github.com/deepinsight/insightface), [InsightFace_Pytorch](https://github.com/TreB1eN/InsightFace_Pytorch), [face.evoLVe](https://github.com/ZhaoJ9014/face.evoLVe.PyTorch/blob/master/README.md). We thank the authors a lot for their valuable efforts.
 
-# Citing FaceX-Zoo
-If you use FaceX-Zoo in your research or wish to refer to the baseline results published by this project, please use the following BibTeX entry.
+# Citation
+Please consider citing our paper in your publications if the project helps your research. BibTeX reference is as follows.
 ```BibTeX
 @article{wang2021facex-zoo,
   title={FaceX-Zoo: A PyTorch Toolbox for Face Recognition},
@@ -40,3 +40,4 @@ If you use FaceX-Zoo in your research or wish to refer to the baseline results p
   year={2021}
 }
 ```
+If you have any questions, please contact with Jun Wang (wangjun492@jd.com), Yinglu Liu (liuyinglu1@jd.com), [Yibo Hu](https://aberhu.github.io/) (huyibo6@jd.com) or [Hailin Shi](https://sites.google.com/view/hailin-shi) (shihailin@jd.com).
