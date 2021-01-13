@@ -50,8 +50,8 @@ The models and training logs mentioned in our technical report are listed as fol
 ### 3.3 Shallow Face Learning
 | Training Mode | LFW | CPLFW | CALFW | AgeDb | Models&Logs |
 | :---: | :---: | :---: | :---: | :---: | :---: |
-| Convention Training | 91.77 | 61.56 | 76.52 | 73.90 | [Google](https://drive.google.com/drive/folders/11Et8c2RuD3k7yy_qB-QzONWa3k5wIAeM?usp=sharing),[Baidu]() |
-| [Semi-siamese Training](https://arxiv.org/abs/2007.08398) | 99.38 | 82.53  | 91.78 | 93.60 | [Google](https://drive.google.com/drive/folders/1EEY2UIofD0llYafZA7Lp6OlKd4t32o6K?usp=sharing),[Baidu]() |
+| Convention Training | 91.77 | 61.56 | 76.52 | 73.90 | [Google](https://drive.google.com/drive/folders/11Et8c2RuD3k7yy_qB-QzONWa3k5wIAeM?usp=sharing),[Baidu](https://pan.baidu.com/s/1VxPXurfd-PkjStFiVP3FVw):j4ve |
+| [Semi-siamese Training](https://arxiv.org/abs/2007.08398) | 99.38 | 82.53  | 91.78 | 93.60 | [Google](https://drive.google.com/drive/folders/1EEY2UIofD0llYafZA7Lp6OlKd4t32o6K?usp=sharing),[Baidu](https://pan.baidu.com/s/1-7r3y9FzTPX9Wx88nVfusQ):n630 |
 
 ### 3.4 Masked Face Recognition
 | Model | Rank1 | Rank3 | Rank5 | Rank10 | Models&Logs | Note |
