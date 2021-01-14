@@ -18,7 +18,7 @@ About the name:
 # Model Training  
 See [README.md](training_mode/README.md) in [training_mode](training_mode), currently support conventional training and [semi-siamese training](https://arxiv.org/abs/2007.08398).
 # Model Evaluation  
-See [README.md](test_protocol/README.md) in [test_protocol](test_protocol), currently support LFW, CPLFW, CALFT, RFW, AgeDB, MegaFace and MegaFace-mask.
+See [README.md](test_protocol/README.md) in [test_protocol](test_protocol), currently support [LFW](https://people.cs.umass.edu/~elm/papers/lfw.pdf), [CPLFW](http://www.whdeng.cn/CPLFW/Cross-Pose-LFW.pdf), [CALFW](https://arxiv.org/abs/1708.08197), [RFW](https://arxiv.org/abs/1812.00194), [AgeDB30](https://core.ac.uk/download/pdf/83949017.pdf), [MegaFace](https://arxiv.org/abs/1512.00596) and MegaFace-mask.
 # Face SDK
 See [README.md](face_sdk/README.md) in [face_sdk](face_sdk), currently support face detection, face alignment and face recognition.
 # Face Mask Adding
