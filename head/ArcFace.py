@@ -10,7 +10,7 @@ import torch.nn.functional as F
 from torch.nn import Module, Parameter
 
 class ArcFace(Module):
-    """Implimentation for "ArcFace: Additive Angular Margin Loss for Deep Face Recognition"
+    """Implementation for "ArcFace: Additive Angular Margin Loss for Deep Face Recognition"
     """
     def __init__(self, feat_dim, num_class, margin_arc=0.35, margin_am=0.0, scale=32):
         super(ArcFace, self).__init__()

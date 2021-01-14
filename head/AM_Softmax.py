@@ -9,7 +9,7 @@ import torch.nn.functional as F
 from torch.nn import Module, Parameter
 
 class AM_Softmax(Module):
-    """Implimentation for "Additive Margin Softmax for Face Verification"
+    """Implementation for "Additive Margin Softmax for Face Verification"
     """
     def __init__(self, feat_dim, num_class, margin=0.35, scale=32):
         super(AM_Softmax, self).__init__()

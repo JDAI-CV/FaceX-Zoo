@@ -14,7 +14,7 @@ from core.model_handler.BaseModelHandler import BaseModelHandler
 from utils.BuzException import *
 
 class FaceRecModelHandler(BaseModelHandler):
-    """Implimentation of face recognition model handler
+    """Implementation of face recognition model handler
 
     Attributes:
         model: the face recognition model.

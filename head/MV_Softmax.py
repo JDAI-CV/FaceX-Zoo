@@ -13,7 +13,7 @@ import torch.nn.functional as F
 from torch.nn import Module, Parameter
 
 class MV_Softmax(Module):
-    """Implimentation for "Mis-classified Vector Guided Softmax Loss for Face Recognition"
+    """Implementation for "Mis-classified Vector Guided Softmax Loss for Face Recognition"
     """
     def __init__(self, feat_dim, num_class, is_am, margin=0.35, mv_weight=1.12, scale=32):
         super(MV_Softmax, self).__init__()

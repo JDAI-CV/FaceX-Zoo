@@ -9,7 +9,7 @@ import sys
 import numpy as np
     
 class LFWEvaluator(object):
-    """Implimentation of LFW test protocal.
+    """Implementation of LFW test protocal.
     
     Attributes:
         data_loader(object): a test data loader.

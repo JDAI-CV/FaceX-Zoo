@@ -9,8 +9,8 @@ import torch.nn.functional as F
 from torch.nn import Module, Parameter
 
 class CircleLoss(Module):
-    """Implimentation for "Circle Loss: A Unified Perspective of Pair Similarity Optimization"
-    Note: this is the classification based implimentation of circle loss.
+    """Implementation for "Circle Loss: A Unified Perspective of Pair Similarity Optimization"
+    Note: this is the classification based implementation of circle loss.
     """
     def __init__(self, feat_dim, num_class, margin=0.25, gamma=256):
         super(CircleLoss, self).__init__()

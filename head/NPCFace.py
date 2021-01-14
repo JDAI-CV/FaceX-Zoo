@@ -10,7 +10,7 @@ import torch.nn.functional as F
 from torch.nn import Module, Parameter
 
 class NPCFace(Module):
-    """Implimentation for "NPCFace: A Negative-Positive Cooperation
+    """Implementation for "NPCFace: A Negative-Positive Cooperation
        Supervision for Training Large-scale Face Recognition"
     """
     def __init__(self, feat_dim=512, num_class=86876, margin=0.5, scale=64):

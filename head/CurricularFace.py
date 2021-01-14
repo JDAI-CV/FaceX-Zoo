@@ -14,7 +14,7 @@ from torch.nn import Parameter
 import math
 
 class CurricularFace(nn.Module):
-    """Implimentation for "CurricularFace: Adaptive Curriculum Learning Loss for Deep Face Recognition".
+    """Implementation for "CurricularFace: Adaptive Curriculum Learning Loss for Deep Face Recognition".
     """
     def __init__(self, feat_dim, num_class, m = 0.5, s = 64.):
         super(CurricularFace, self).__init__()

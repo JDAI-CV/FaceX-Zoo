@@ -159,8 +159,8 @@ class MegaFaceEvaluator(metaclass=ABCMeta):
     
 class CommonMegaFaceEvaluator(MegaFaceEvaluator):
     """The common MegaFace test protocal.
-    Python implimentation of megaface test protocal, 
-    the same as the official implimentation by .bin.
+    Python implementation of megaface test protocal, 
+    the same as the official implementation by .bin.
 
     Attributes:
         facescrub_feature_dir(str): inherit from the parent class.

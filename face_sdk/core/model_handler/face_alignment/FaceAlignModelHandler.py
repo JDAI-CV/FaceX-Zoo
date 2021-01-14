@@ -17,7 +17,7 @@ from utils.BuzException import *
 from torchvision import transforms
 
 class FaceAlignModelHandler(BaseModelHandler):
-    """Implimentation of face landmark model handler
+    """Implementation of face landmark model handler
 
     Attributes:
         model: the face landmark model.

@@ -14,7 +14,7 @@ from torch.nn import Parameter
 import math
 
 class AdaCos(nn.Module):
-    """Implimentation for "Adaptively Scaling Cosine Logits for Effectively Learning Deep Face Representations".
+    """Implementation for "Adaptively Scaling Cosine Logits for Effectively Learning Deep Face Representations".
     """
     def __init__(self, feat_dim, num_classes):
         super(AdaCos, self).__init__()

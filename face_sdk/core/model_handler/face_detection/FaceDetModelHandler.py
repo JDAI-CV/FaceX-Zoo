@@ -19,7 +19,7 @@ from utils.BuzException import *
 
 
 class FaceDetModelHandler(BaseModelHandler):
-    """Implimentation of face detection model handler
+    """Implementation of face detection model handler
 
     Attributes:
         model: the face detection model.

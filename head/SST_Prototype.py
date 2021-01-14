@@ -11,7 +11,7 @@ import random
 import torch.nn.functional as F
 
 class SST_Prototype(Module):
-    """Implimentation for "Semi-Siamese Training for Shallow Face Learning".
+    """Implementation for "Semi-Siamese Training for Shallow Face Learning".
     """
     def __init__(self, feat_dim=512, queue_size=16384, scale=30.0, loss_type='softmax', margin=0.0):
         super(SST_Prototype, self).__init__()

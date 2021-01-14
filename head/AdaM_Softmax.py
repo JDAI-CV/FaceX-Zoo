@@ -8,7 +8,7 @@ import torch.nn.functional as F
 from torch.nn import Module, Parameter
 
 class Adam_Softmax(Module):
-    """Implimentation for "AdaptiveFace: Adaptive Margin and Sampling for Face Recognition".
+    """Implementation for "AdaptiveFace: Adaptive Margin and Sampling for Face Recognition".
     """
     def __init__(self, feat_dim, num_class, scale=30.0, lamda=70.0):
         super(Adam_Softmax, self).__init__()

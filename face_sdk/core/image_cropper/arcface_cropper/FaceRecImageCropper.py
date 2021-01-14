@@ -99,7 +99,7 @@ def norm_crop(img, landmark, image_size=112, mode='arcface'):
 
 # my class warpper
 class FaceRecImageCropper(BaseImageCropper):
-    """Implimentation of image cropper
+    """Implementation of image cropper
 
     Attributes:
         image: the input image.
