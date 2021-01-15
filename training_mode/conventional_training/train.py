@@ -17,7 +17,6 @@ from tensorboardX import SummaryWriter
 sys.path.append('../../')
 from utils.AverageMeter import AverageMeter
 from data_processor.train_dataset import ImageDataset
-#from data_processor.train_dataset import ImageDataset_eye
 from backbone.backbone_def import BackboneFactory
 from head.head_def import HeadFactory
 
