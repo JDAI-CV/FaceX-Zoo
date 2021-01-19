@@ -1,7 +1,7 @@
 """
 @author: JiXuan Xu, Jun Wang
 @date: 20201015
-@contact: jun21wangustc@gmail.com 
+@contact: jun21wangustc@gmail.com
 """
 import logging.config
 logging.config.fileConfig("config/logging.conf")
@@ -23,19 +23,21 @@ class FaceRecModelHandler(BaseModelHandler):
     """
     def __init__(self, model, device, cfg):
         """
-        Init FaceRecModelHandler settings. 
+        Init FaceRecModelHandler settings.
         """
         super().__init__(model, device, cfg)
         self.mean = self.cfg['mean']
         self.std = self.cfg['std']
         self.input_height = self.cfg['input_height']
         self.input_width = self.cfg['input_width']
-        
+        if self.device.type == "cpu":
+            self.model = self.model.module.cpu()
+
     def inference_on_image(self, image):
         """Get the inference of the image.
 
         Returns:
-            A numpy array, the output feature, shape (512,), 
+            A numpy array, the output feature, shape (512,),
         """
         try:
             image = self._preprocess(image)
@@ -53,7 +55,7 @@ class FaceRecModelHandler(BaseModelHandler):
 
         Returns:
            A torch tensor, the input after preprecess, shape: (3, 112, 112).
-        """       
+        """
         if not isinstance(image, np.ndarray):
             logger.error('The input should be the ndarray read by cv2!')
             raise InputError()
