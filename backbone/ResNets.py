@@ -11,8 +11,7 @@ from torch.nn import Linear, Conv2d, BatchNorm1d, BatchNorm2d, PReLU, ReLU, Sigm
 import torch.nn.functional as F
 import torch
 from collections import namedtuple
-import math
-import pdb
+
 
 class Flatten(Module):
     def forward(self, input):
@@ -130,8 +129,6 @@ class Resnet(Module):
         self.output_layer = Sequential(BatchNorm2d(512), 
                                        Dropout(drop_ratio),
                                        Flatten(),
-                                       #Linear(512 * 7 * 7, 512), # for face
-                                       #Linear(512 * 4 * 7, 512), # for eye
                                        Linear(512 * out_h * out_w, feat_dim), # for eye
                                        BatchNorm1d(feat_dim))
         modules = []
