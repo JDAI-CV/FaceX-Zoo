@@ -106,7 +106,7 @@ class FaceDetModelHandler(BaseModelHandler):
         dets = dets[keep, :]
         return dets
 
-    # Adapted from https://github.com/Hakuyume/chainer-ssd
+    # Adapted from https://github.com/chainer/chainercv
     def decode(self, loc, priors, variances):
         """Decode locations from predictions using priors to undo
         the encoding we did for offset regression at train time.
