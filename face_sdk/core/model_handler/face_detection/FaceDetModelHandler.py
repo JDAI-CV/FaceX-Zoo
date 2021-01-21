@@ -127,7 +127,7 @@ class FaceDetModelHandler(BaseModelHandler):
         boxes[:, 2:] += boxes[:, :2]
         return boxes
 
-    # Adapted from https://github.com/biubug6/Pytorch_Retinafacey
+    # Adapted from https://github.com/biubug6/Pytorch_Retinaface
     def py_cpu_nms(self, dets, thresh):
         """Python version NMS.
 
