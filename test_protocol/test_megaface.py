@@ -25,7 +25,7 @@ if __name__ == '__main__':
                       help = "If the feature is concated by two nomalized features.")
     args = conf.parse_args()
     with open(args.data_conf_file) as f:
-        data_conf  = yaml.load(f)['megaface']
+        data_conf  = yaml.load(f)['MegaFace']
         facescrub_json_list = data_conf['facescrub_list']
         megaface_json_list = data_conf['megaceface_list']
         megaface_mask = data_conf['megaface-mask']
