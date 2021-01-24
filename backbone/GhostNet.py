@@ -1,32 +1,36 @@
 """
 @author: Jun Wang
-@date: 20201019  
+@date: 20210121
 @contact: jun21wangustc@gmail.com 
 """
 
 # based on:
-# https://github.com/iamhankai/ghostnet.pytorch/blob/master/ghost_net.py
+# https://github.com/huawei-noah/ghostnet/blob/master/ghostnet_pytorch/ghostnet.py
 
+# 2020.06.09-Changed for building GhostNet
+#            Huawei Technologies Co., Ltd. <foss@huawei.com>
 """
 Creates a GhostNet Model as defined in:
 GhostNet: More Features from Cheap Operations By Kai Han, Yunhe Wang, Qi Tian, Jianyuan Guo, Chunjing Xu, Chang Xu.
 https://arxiv.org/abs/1911.11907
-Modified from https://github.com/d-li14/mobilenetv3.pytorch
+Modified from https://github.com/d-li14/mobilenetv3.pytorch and https://github.com/rwightman/pytorch-image-models
 """
+import math
 import torch
 import torch.nn as nn
-import math
-
+import torch.nn.functional as F
+from torch.nn import Sequential, BatchNorm2d, Dropout, Module, Linear, BatchNorm1d
 
 __all__ = ['ghost_net']
 
-class Flatten(nn.Module):
+
+class Flatten(Module):
     def forward(self, input):
         return input.view(input.size(0), -1)
 
-def l2_norm(input,axis=1):
-    norm = torch.norm(input,2,axis,True)
-    output = torch.div(input, norm)
+def l2_norm(x, axis=1): 
+    norm = torch.norm(x, 2, axis, True) 
+    output = x / norm
     return output
 
 def _make_divisible(v, divisor, min_value=None):
@@ -45,29 +49,47 @@ def _make_divisible(v, divisor, min_value=None):
     return new_v
 
 
-class SELayer(nn.Module):
-    def __init__(self, channel, reduction=4):
-        super(SELayer, self).__init__()
+def hard_sigmoid(x, inplace: bool = False):
+    if inplace:
+        return x.add_(3.).clamp_(0., 6.).div_(6.)
+    else:
+        return F.relu6(x + 3.) / 6.
+
+
+class SqueezeExcite(nn.Module):
+    def __init__(self, in_chs, se_ratio=0.25, reduced_base_chs=None,
+                 act_layer=nn.ReLU, gate_fn=hard_sigmoid, divisor=4, **_):
+        super(SqueezeExcite, self).__init__()
+        self.gate_fn = gate_fn
+        reduced_chs = _make_divisible((reduced_base_chs or in_chs) * se_ratio, divisor)
         self.avg_pool = nn.AdaptiveAvgPool2d(1)
-        self.fc = nn.Sequential(
-                nn.Linear(channel, channel // reduction),
-                nn.ReLU(inplace=True),
-                nn.Linear(channel // reduction, channel),        )
+        self.conv_reduce = nn.Conv2d(in_chs, reduced_chs, 1, bias=True)
+        self.act1 = act_layer(inplace=True)
+        self.conv_expand = nn.Conv2d(reduced_chs, in_chs, 1, bias=True)
 
     def forward(self, x):
-        b, c, _, _ = x.size()
-        y = self.avg_pool(x).view(b, c)
-        y = self.fc(y).view(b, c, 1, 1)
-        y = torch.clamp(y, 0, 1)
-        return x * y
+        x_se = self.avg_pool(x)
+        x_se = self.conv_reduce(x_se)
+        x_se = self.act1(x_se)
+        x_se = self.conv_expand(x_se)
+        x = x * self.gate_fn(x_se)
+        return x    
 
+    
+class ConvBnAct(nn.Module):
+    def __init__(self, in_chs, out_chs, kernel_size,
+                 stride=1, act_layer=nn.ReLU):
+        super(ConvBnAct, self).__init__()
+        self.conv = nn.Conv2d(in_chs, out_chs, kernel_size, stride, kernel_size//2, bias=False)
+        self.bn1 = nn.BatchNorm2d(out_chs)
+        self.act1 = act_layer(inplace=True)
 
-def depthwise_conv(inp, oup, kernel_size=3, stride=1, relu=False):
-    return nn.Sequential(
-        nn.Conv2d(inp, oup, kernel_size, stride, kernel_size//2, groups=inp, bias=False),
-        nn.BatchNorm2d(oup),
-        nn.ReLU(inplace=True) if relu else nn.Sequential(),
-    )
+    def forward(self, x):
+        x = self.conv(x)
+        x = self.bn1(x)
+        x = self.act1(x)
+        return x
+
 
 class GhostModule(nn.Module):
     def __init__(self, inp, oup, kernel_size=1, ratio=2, dw_size=3, stride=1, relu=True):
@@ -96,122 +118,136 @@ class GhostModule(nn.Module):
 
 
 class GhostBottleneck(nn.Module):
-    def __init__(self, inp, hidden_dim, oup, kernel_size, stride, use_se):
+    """ Ghost bottleneck w/ optional SE"""
+
+    def __init__(self, in_chs, mid_chs, out_chs, dw_kernel_size=3,
+                 stride=1, act_layer=nn.ReLU, se_ratio=0.):
         super(GhostBottleneck, self).__init__()
-        assert stride in [1, 2]
+        has_se = se_ratio is not None and se_ratio > 0.
+        self.stride = stride
 
-        self.conv = nn.Sequential(
-            # pw
-            GhostModule(inp, hidden_dim, kernel_size=1, relu=True),
-            # dw
-            depthwise_conv(hidden_dim, hidden_dim, kernel_size, stride, relu=False) if stride==2 else nn.Sequential(),
-            # Squeeze-and-Excite
-            SELayer(hidden_dim) if use_se else nn.Sequential(),
-            # pw-linear
-            GhostModule(hidden_dim, oup, kernel_size=1, relu=False),
-        )
+        # Point-wise expansion
+        self.ghost1 = GhostModule(in_chs, mid_chs, relu=True)
 
-        if stride == 1 and inp == oup:
+        # Depth-wise convolution
+        if self.stride > 1:
+            self.conv_dw = nn.Conv2d(mid_chs, mid_chs, dw_kernel_size, stride=stride,
+                             padding=(dw_kernel_size-1)//2,
+                             groups=mid_chs, bias=False)
+            self.bn_dw = nn.BatchNorm2d(mid_chs)
+
+        # Squeeze-and-excitation
+        if has_se:
+            self.se = SqueezeExcite(mid_chs, se_ratio=se_ratio)
+        else:
+            self.se = None
+
+        # Point-wise linear projection
+        self.ghost2 = GhostModule(mid_chs, out_chs, relu=False)
+        
+        # shortcut
+        if (in_chs == out_chs and self.stride == 1):
             self.shortcut = nn.Sequential()
         else:
             self.shortcut = nn.Sequential(
-                depthwise_conv(inp, inp, kernel_size, stride, relu=False),
-                nn.Conv2d(inp, oup, 1, 1, 0, bias=False),
-                nn.BatchNorm2d(oup),
+                nn.Conv2d(in_chs, in_chs, dw_kernel_size, stride=stride,
+                       padding=(dw_kernel_size-1)//2, groups=in_chs, bias=False),
+                nn.BatchNorm2d(in_chs),
+                nn.Conv2d(in_chs, out_chs, 1, stride=1, padding=0, bias=False),
+                nn.BatchNorm2d(out_chs),
             )
 
+
     def forward(self, x):
-        return self.conv(x) + self.shortcut(x)
+        residual = x
+
+        # 1st ghost bottleneck
+        x = self.ghost1(x)
+
+        # Depth-wise convolution
+        if self.stride > 1:
+            x = self.conv_dw(x)
+            x = self.bn_dw(x)
+
+        # Squeeze-and-excitation
+        if self.se is not None:
+            x = self.se(x)
+
+        # 2nd ghost bottleneck
+        x = self.ghost2(x)
+        
+        x += self.shortcut(residual)
+        return x
 
 
 class GhostNet(nn.Module):
-    def __init__(self, embedding_size=512):
+    def __init__(self, width=1.0, drop_ratio=0.2, feat_dim=512, out_h=7, out_w=7):
         super(GhostNet, self).__init__()
         # setting of inverted residual blocks
         self.cfgs = [
-        # k, t, c, SE, s 
-        [3,  16,  16, 0, 1],
-        [3,  48,  24, 0, 2],
-        [3,  72,  24, 0, 1],
-        [5,  72,  40, 1, 2],
-        [5, 120,  40, 1, 1],
-        [3, 240,  80, 0, 2],
-        [3, 200,  80, 0, 1],
-        [3, 184,  80, 0, 1],
-        [3, 184,  80, 0, 1],
-        [3, 480, 112, 1, 1],
-        [3, 672, 112, 1, 1],
-        [5, 672, 160, 1, 2],
-        [5, 960, 160, 0, 1],
-        [5, 960, 160, 1, 1],
-        [5, 960, 160, 0, 1],
-        [5, 960, 160, 1, 1]
+            # k, t, c, SE, s 
+            # stage1
+            [[3,  16,  16, 0, 1]],
+            # stage2
+            [[3,  48,  24, 0, 2]],
+            [[3,  72,  24, 0, 1]],
+            # stage3
+            [[5,  72,  40, 0.25, 2]],
+            [[5, 120,  40, 0.25, 1]],
+            # stage4
+            [[3, 240,  80, 0, 2]],
+            [[3, 200,  80, 0, 1],
+             [3, 184,  80, 0, 1],
+             [3, 184,  80, 0, 1],
+             [3, 480, 112, 0.25, 1],
+             [3, 672, 112, 0.25, 1]
+            ],
+            # stage5
+            [[5, 672, 160, 0.25, 2]],
+            [[5, 960, 160, 0, 1],
+             [5, 960, 160, 0.25, 1],
+             [5, 960, 160, 0, 1],
+             [5, 960, 160, 0.25, 1]
+            ]
         ]
-        width_mult=1.
+
         # building first layer
-        output_channel = _make_divisible(16 * width_mult, 4)
-        layers = [nn.Sequential(
-            #nn.Conv2d(3, output_channel, 3, 2, 1, bias=False),
-            nn.Conv2d(3, output_channel, 3, 1, 1, bias=False),
-            nn.BatchNorm2d(output_channel),
-            nn.ReLU(inplace=True)
-        )]
+        output_channel = _make_divisible(16 * width, 4)
+        #self.conv_stem = nn.Conv2d(3, output_channel, 3, 2, 1, bias=False)
+        self.conv_stem = nn.Conv2d(3, output_channel, 3, 1, 1, bias=False)
+        self.bn1 = nn.BatchNorm2d(output_channel)
+        self.act1 = nn.ReLU(inplace=True)
         input_channel = output_channel
 
         # building inverted residual blocks
+        stages = []
         block = GhostBottleneck
-        for k, exp_size, c, use_se, s in self.cfgs:
-            output_channel = _make_divisible(c * width_mult, 4)
-            hidden_channel = _make_divisible(exp_size * width_mult, 4)
-            layers.append(block(input_channel, hidden_channel, output_channel, k, s, use_se))
-            input_channel = output_channel
-        self.features = nn.Sequential(*layers)
+        for cfg in self.cfgs:
+            layers = []
+            for k, exp_size, c, se_ratio, s in cfg:
+                output_channel = _make_divisible(c * width, 4)
+                hidden_channel = _make_divisible(exp_size * width, 4)
+                layers.append(block(input_channel, hidden_channel, output_channel, k, s,
+                              se_ratio=se_ratio))
+                input_channel = output_channel
+            stages.append(nn.Sequential(*layers))
 
-        # building last several layers
-        output_channel = _make_divisible(exp_size * width_mult, 4)
-        self.squeeze = nn.Sequential(
-            nn.Conv2d(input_channel, output_channel, 1, 1, 0, bias=False),
-            nn.BatchNorm2d(output_channel),
-            nn.ReLU(inplace=True),
-            nn.AdaptiveAvgPool2d((1, 1)),
-        )
-        self.flatten = Flatten()
-        self.linear = nn.Linear(960, embedding_size, bias=False)
-        self.bn = nn.BatchNorm1d(embedding_size)
-        '''
+        output_channel = _make_divisible(exp_size * width, 4)
+        stages.append(nn.Sequential(ConvBnAct(input_channel, output_channel, 1)))
         input_channel = output_channel
-        output_channel = 1280
-        self.classifier = nn.Sequential(
-            nn.Linear(input_channel, output_channel, bias=False),
-            nn.BatchNorm1d(output_channel),
-            nn.ReLU(inplace=True),
-            nn.Dropout(0.2),
-            nn.Linear(output_channel, num_classes),
-        )
-        '''
-        self._initialize_weights()
+        
+        self.blocks = nn.Sequential(*stages)        
+
+        self.output_layer = Sequential(BatchNorm2d(960),
+                                       Dropout(drop_ratio),
+                                       Flatten(),
+                                       Linear(960 * out_h * out_w, feat_dim), # for eye 
+                                       BatchNorm1d(feat_dim))
 
     def forward(self, x):
-        x = self.features(x)
-        x = self.squeeze(x)
-        x = self.flatten(x)
-        x = self.linear(x)
-        x = self.bn(x)
+        x = self.conv_stem(x)
+        x = self.bn1(x)
+        x = self.act1(x)
+        x = self.blocks(x)
+        x = self.output_layer(x)
         return l2_norm(x)
-
-    def _initialize_weights(self):
-        for m in self.modules():
-            if isinstance(m, nn.Conv2d):
-                nn.init.kaiming_normal_(m.weight, mode='fan_out', nonlinearity='relu')
-            elif isinstance(m, nn.BatchNorm2d):
-                m.weight.data.fill_(1)
-                m.bias.data.zero_()
-
-if __name__=='__main__':
-    model = ghost_net()
-    model.eval()
-    print(model)
-    input = torch.randn(32,3,224,224)
-    y = model(input)
-    print(y)
-

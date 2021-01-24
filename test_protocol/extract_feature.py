@@ -30,22 +30,22 @@ if __name__ == '__main__':
                       help = 'The path for feature save.')
     args = conf.parse_args()
     with open(args.data_conf_file) as f:
-        data_conf = yaml.load(f)['megaface']
+        data_conf = yaml.load(f)['MegaFace']
         croped_face_folder = data_conf['croped_face_folder']
         image_list_file = data_conf['image_list_file']
         megaface_mask = data_conf['megaface-mask']
         masked_croped_face_folder = data_conf['masked_croped_face_folder']
         masked_image_list_file = data_conf['masked_image_list_file']
-    data_loader = DataLoader(CommonTestDataset(croped_face_folder, image_list_file, True), 
+    data_loader = DataLoader(CommonTestDataset(croped_face_folder, image_list_file, False), 
                              batch_size=args.batch_size, num_workers=4, shuffle=False)
     # define model.
     backbone_factory = BackboneFactory(args.backbone_type, args.backbone_conf_file)
     model_loader = ModelLoader(backbone_factory)
-    model = model_loader.load_model_copy(args.model_path)
+    model = model_loader.load_model(args.model_path)
     # extract feature.
     feature_extractor = CommonExtractor('cuda:0')
     feature_extractor.extract_offline(args.feats_root, model, data_loader)
     if megaface_mask == 1:
-        data_loader = DataLoader(CommonTestDataset(masked_croped_face_folder, masked_image_list_file, True), 
+        data_loader = DataLoader(CommonTestDataset(masked_croped_face_folder, masked_image_list_file, False), 
                                  batch_size=args.batch_size, num_workers=4, shuffle=False)
         feature_extractor.extract_offline(args.feats_root, model, data_loader)

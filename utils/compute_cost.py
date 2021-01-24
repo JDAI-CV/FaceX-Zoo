@@ -12,12 +12,13 @@ from thop import clever_format
 sys.path.append('..')
 from backbone.backbone_def import BackboneFactory
 
-backbone_type = 'MobileFaceNet'
+#backbone_type = 'MobileFaceNet'
 #backbone_type = 'ResNet'
 #backbone_type = 'EfficientNet'
 #backbone_type = 'HRNet'
-#backbone_type = 'GhostNet'
+backbone_type = 'GhostNet'
 #backbone_type = 'AttentionNet'
+#backbone_type = 'TF-NAS'
 
 backbone_conf_file = '../training_mode/backbone_conf.yaml'
 backbone_factory = BackboneFactory(backbone_type, backbone_conf_file)

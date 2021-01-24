@@ -129,7 +129,7 @@ if __name__ == '__main__':
     parser.add_argument('--masked_facescrub_feature_outdir', type=str, default='')
     args = parser.parse_args()
     with open(args.data_conf_file) as f:
-        data_conf  = yaml.load(f)['megaface']
+        data_conf  = yaml.load(f)['MegaFace']
         facescrub_noises_file = data_conf['facescrub_noises_file']
         megaface_noises_file = data_conf['megaface_noises_file']
         megaface_mask = data_conf['megaface-mask']

@@ -79,12 +79,16 @@ HRNet:
       FUSE_METHOD: SUM
 
 GhostNet:
+    width: 1.0
+    drop_ratio: 0.2
+    out_h: 7
+    out_w: 7
     feat_dim: 512
 
 AttentionNet:
     stage1_modules: 1
-    stage2_modules: 2
-    stage3_modules: 3
+    stage2_modules: 1
+    stage3_modules: 1
     feat_dim: 512
     out_h: 7
     out_w: 7
