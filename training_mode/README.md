@@ -32,8 +32,10 @@ The models and training logs mentioned in our technical report are listed as fol
 | [TF-NAS-A](https://arxiv.org/abs/2008.05314)        | 99.75 | 85.90 | 94.87 | 97.23 | 94.42 | 39.59M | 534.41M | [Google](https://drive.google.com/drive/folders/1vR17gH6NQXGAGUdaqUJqte8PhflzTkG1?usp=sharing),[Baidu](https://pan.baidu.com/s/1lFUVndOSrk4SVCMGPXrxQg):kq2v |
 | [GhostNet](https://arxiv.org/pdf/1911.11907.pdf)        | 99.65 | 83.52 | 93.93 | 95.70 | 89.42 | 26.76M | 194.49M | [Google](https://drive.google.com/drive/folders/1IVCMa9p_F8DjG00ckRUClX-4Pu6QW5hg?usp=sharing),[Baidu](https://pan.baidu.com/s/17p-9qvo87mkExnDHQEr_cA):k1td |
 | [Attention-56](https://arxiv.org/abs/1704.06904)    | 99.88 | 89.18 | 95.65 | 98.12 | 97.75 | 98.96M | 6.34G | [Google](https://drive.google.com/drive/folders/1oxQ7EVxrCZ57MYjqPVqwIn8W4PtJ5G9m?usp=sharing),[Baidu](https://pan.baidu.com/s/1xcWw0GI_SesSQNp_ZNDqZg):f93u |
+| [Attention-92(MX)](https://arxiv.org/abs/1704.06904)    | 99.82 | 90.338 | 95.88 | 98.08 | 98.09 | 134.56M | 10.62G | [Google](),[Baidu]():f93u |
 * MegaFace means MegaFace rank1 accuracy.  
 * Params and Macs are computed by [THOP](https://github.com/Lyken17/pytorch-OpCounter).  
+* MX means mixed precision training by [apex](https://github.com/nvidia/apex).
 
 ### 3.2 Experiments of SOTA heads
 | Supervisory Head | LFW | CPLFW | CALFW | AgeDb | MegaFace_rank1 | Models&Logs |
