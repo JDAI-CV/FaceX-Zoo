@@ -2,4 +2,4 @@
 ## train.py
 The common training pipeline.
 ## train_amp.py
-The mixed precision training pipeline. We use the tool provided by [apex](https://github.com/nvidia/apex).
+The mixed precision training pipeline. You should install the [apex](https://github.com/nvidia/apex) firstly.
