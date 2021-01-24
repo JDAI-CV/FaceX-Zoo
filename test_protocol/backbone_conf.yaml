@@ -80,6 +80,10 @@ HRNet:
       FUSE_METHOD: SUM
 
 GhostNet:
+    width: 1.0
+    drop_ratio: 0.2
+    out_h: 7
+    out_w: 7
     feat_dim: 512
 
 AttentionNet:

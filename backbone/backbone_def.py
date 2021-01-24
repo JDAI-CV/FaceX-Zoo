@@ -62,8 +62,12 @@ class BackboneFactory:
             config['MODEL'] = self.backbone_param
             backbone = HighResolutionNet(config)
         elif self.backbone_type == 'GhostNet':
+            width = self.backbone_param['width']
+            drop_ratio = self.backbone_param['drop_ratio'] # drop out ratio.
             feat_dim = self.backbone_param['feat_dim'] # dimension of the output features, e.g. 512.
-            backbone = GhostNet(feat_dim)
+            out_h = self.backbone_param['out_h'] # height of the feature map before the final features.
+            out_w = self.backbone_param['out_w'] # width of the feature map before the final feature
+            backbone = GhostNet(width, drop_ratio, feat_dim, out_h, out_w)
         elif self.backbone_type == 'AttentionNet':
             stage1_modules = self.backbone_param['stage1_modules'] # the number of attention modules in stage1.
             stage2_modules = self.backbone_param['stage2_modules'] # the number of attention modules in stage2.
