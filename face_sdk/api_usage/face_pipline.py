@@ -79,12 +79,12 @@ if __name__ == '__main__':
     # read image and get face features.
     image_path = 'api_usage/test_images/test1.jpg'
     image = cv2.imread(image_path, cv2.IMREAD_COLOR)
+    face_cropper = FaceRecImageCropper()
     try:
         dets = faceDetModelHandler.inference_on_image(image)
         face_nums = dets.shape[0]
         if face_nums != 2:
             logger.info('Input image should contain two faces to compute similarity!')
-        face_cropper = FaceRecImageCropper()
         feature_list = []
         for i in range(face_nums):
             landmarks = faceAlignModelHandler.inference_on_image(image, dets[i])
