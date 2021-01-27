@@ -49,4 +49,4 @@ The logs in this sdk are configured by [logging.conf](config/logging.conf).
 * In the [api_usage](api_usage) module, we set **logger = logging.getLogger('api')**, which will print the simple logs in the console.
 
 # Reference
-This project is mainly inspired by [Pytorch_Retinaface](https://github.com/biubug6/Pytorch_Retinaface), [chainer-ssd](https://github.com/Hakuyume/chainer-ssd), [pfld_106_face_landmarks](https://github.com/Hsintao/pfld_106_face_landmarks), [InsightFace](https://github.com/deepinsight/insightface), [InsightFace_Pytorch](https://github.com/TreB1eN/InsightFace_Pytorch/blob/master/model.py)
+This project is mainly inspired by [Pytorch_Retinaface](https://github.com/biubug6/Pytorch_Retinaface), [ChainerCV](https://github.com/chainer/chainercv/), [pfld_106_face_landmarks](https://github.com/Hsintao/pfld_106_face_landmarks), [InsightFace](https://github.com/deepinsight/insightface), [InsightFace_Pytorch](https://github.com/TreB1eN/InsightFace_Pytorch/blob/master/model.py)
