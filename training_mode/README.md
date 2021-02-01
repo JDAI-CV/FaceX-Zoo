@@ -30,9 +30,9 @@ The models and training logs mentioned in our technical report are listed as fol
 | [HRNet](https://arxiv.org/abs/1908.07919)           | 99.80 | 88.89 | 95.48 | 97.82 | 97.32 | 70.63M | 4.35G | [Google](https://drive.google.com/drive/folders/1Cr26ScPdfrScE4FD_CW1xZhBtLuGM85O?usp=sharing),[Baidu](https://pan.baidu.com/s/1nv36Fub8QiQZK0iV5aXl5Q):t9eo |
 | [EfficientNet-B0](https://arxiv.org/abs/1905.11946) | 99.55 | 84.72 | 94.37 | 96.63 | 91.38 | 33.44M | 77.83M | [Google](https://drive.google.com/drive/folders/1wR48k8h8mCryMw4NrfkBtocw_TGp2S1q?usp=sharing),[Baidu](https://pan.baidu.com/s/1ZdLiQ_vJJxYYw6scohW9tA):sgja |
 | [TF-NAS-A](https://arxiv.org/abs/2008.05314)        | 99.75 | 85.90 | 94.87 | 97.23 | 94.42 | 39.59M | 534.41M | [Google](https://drive.google.com/drive/folders/1vR17gH6NQXGAGUdaqUJqte8PhflzTkG1?usp=sharing),[Baidu](https://pan.baidu.com/s/1lFUVndOSrk4SVCMGPXrxQg):kq2v |
-| [GhostNet](https://arxiv.org/pdf/1911.11907.pdf)        | 99.65 | 83.52 | 93.93 | 95.70 | 89.42 | 26.76M | 194.49M | [Google](),[Baidu](https://pan.baidu.com/s/1q-UZycjyjVfWI_6_AjlQyA):6dg1 |
+| [GhostNet](https://arxiv.org/pdf/1911.11907.pdf)        | 99.65 | 83.52 | 93.93 | 95.70 | 89.42 | 26.76M | 194.49M | [Google](https://drive.google.com/drive/folders/1DI5JpgHG4x0GQIiO0--CIzWKNGa-TxXC?usp=sharing),[Baidu](https://pan.baidu.com/s/1q-UZycjyjVfWI_6_AjlQyA):6dg1 |
 | [Attention-56](https://arxiv.org/abs/1704.06904)    | 99.88 | 89.18 | 95.65 | 98.12 | 97.75 | 98.96M | 6.34G | [Google](https://drive.google.com/drive/folders/1oxQ7EVxrCZ57MYjqPVqwIn8W4PtJ5G9m?usp=sharing),[Baidu](https://pan.baidu.com/s/1xcWw0GI_SesSQNp_ZNDqZg):f93u |
-| [Attention-92(MX)](https://arxiv.org/abs/1704.06904)    | 99.82 | 90.33 | 95.88 | 98.08 | 98.09 | 134.56M | 10.62G | [Google](),[Baidu](https://pan.baidu.com/s/1Vp6g_bS_2uBJ2OkHNzAxeQ):3ura |
+| [Attention-92(MX)](https://arxiv.org/abs/1704.06904)    | 99.82 | 90.33 | 95.88 | 98.08 | 98.09 | 134.56M | 10.62G | [Google](https://drive.google.com/drive/folders/1h_meJetsaVUm-37Wqo-o3ed9lyWcS8-B?usp=sharing),[Baidu](https://pan.baidu.com/s/1Vp6g_bS_2uBJ2OkHNzAxeQ):3ura |
 * MegaFace means MegaFace rank1 accuracy.  
 * Params and Macs are computed by [THOP](https://github.com/Lyken17/pytorch-OpCounter).  
 * MX means mixed precision training by [apex](https://github.com/nvidia/apex).
