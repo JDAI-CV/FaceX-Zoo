@@ -101,6 +101,7 @@ class FaceMasker:
         self.is_aug = is_aug
 
     def get_ref_texture_src(self):
+        # 获取口罩的mask 以及 纹理数据
         template_name2ref_texture_src = {}
         template_name2uv_mask_src = {}
         mask_template_list = os.listdir(self.mask_template_folder)
@@ -108,8 +109,8 @@ class FaceMasker:
         for mask_template in mask_template_list:
             mask_template_path = os.path.join(self.mask_template_folder, mask_template)
             ref_texture_src = imread(mask_template_path, as_gray=False)/255.
-            if ref_texture_src.shape[2] == 4: # must 4 channel, how about 3 channel?
-                uv_mask_src = ref_texture_src[:,:,3]
+            if ref_texture_src.shape[2] == 4: # must 4 channel, how about 3 channel? 需要一个透明度通道，因为作为一个模板，必须要有这个透明度通道
+                uv_mask_src = ref_texture_src[:,:,3]  # 这个即透明度通道，是实际上的mask
                 ref_texture_src = ref_texture_src[:,:,:3]
             else:
                 print('Fatal error!', mask_template_path)
@@ -148,16 +149,53 @@ class FaceMasker:
         texture = cv2.remap(image, pos[:,:,:2].astype(np.float32), None, 
                             interpolation=cv2.INTER_NEAREST, 
                             borderMode=cv2.BORDER_CONSTANT,borderValue=(0))
-        new_texture = self.get_new_texture(ref_texture_src, uv_mask_src, texture)
+        new_texture = self.get_new_texture(ref_texture_src, uv_mask_src, texture)  # 此处 人脸的texture与口罩的texture融合了
         #remap to input image.(render)
         vis_colors = np.ones((vertices.shape[0], 1))
         face_mask = mesh.render.render_colors(vertices, self.prn.triangles, vis_colors, h, w, c = 1)
-        face_mask = np.squeeze(face_mask > 0).astype(np.float32)
+        face_mask = np.squeeze(face_mask > 0).astype(np.float32)  # 在原始图像中 人脸的mask 非人脸区域为0
         new_colors = self.prn.get_colors_from_texture(new_texture)
         new_image = mesh.render.render_colors(vertices, self.prn.triangles, new_colors, h, w, c = 3)
         new_image = image * (1 - face_mask[:, :, np.newaxis]) + new_image * face_mask[:, :, np.newaxis]
         new_image = np.clip(new_image, -1, 1) #must clip to (-1, 1)!
         imsave(masked_face_path, new_image) 
+
+    def add_mask_multi(self, image_path, face_lmses, template_name, masked_face_path):
+        """Add mask to one image.
+
+        Args:
+            image_path(str): the image to add mask.
+            face_lmses(str): list of face landmarks, [[x1, y1, x2, y2, ..., x106, y106], [x1, y1, x2, y2, ..., x106, y106], ...]
+            template_name(str): the mask template to be added on the current image, 
+                                got to '/Data/mask-data' for all template.
+            masked_face_path(str): the path to save masked image.
+        """
+        import copy
+        image = imread(image_path)
+        ref_texture_src = self.template_name2ref_texture_src[template_name] 
+        uv_mask_src = self.template_name2uv_mask_src[template_name]
+        if image.ndim == 2:
+            image = cv2.cvtColor(image, cv2.COLOR_GRAY2RGB)
+        [h, w, c] = image.shape
+        if c == 4:
+            image = image[:,:,:3]
+        image = image/255. #!!
+        image = copy.deepcopy(image)
+        for face_lms in face_lmses:
+            pos, vertices = self.get_vertices(face_lms, image) #3d reconstruction -> get texture. 
+            texture = cv2.remap(image, pos[:,:,:2].astype(np.float32), None, 
+                                interpolation=cv2.INTER_NEAREST, 
+                                borderMode=cv2.BORDER_CONSTANT,borderValue=(0))  # 原来的人脸texture
+            new_texture = self.get_new_texture(ref_texture_src, uv_mask_src, texture) # 加上mask的人脸texture
+            #remap to input image.(render)
+            vis_colors = np.ones((vertices.shape[0], 1))
+            face_mask = mesh.render.render_colors(vertices, self.prn.triangles, vis_colors, h, w, c = 1)
+            face_mask = np.squeeze(face_mask > 0).astype(np.float32)
+            new_colors = self.prn.get_colors_from_texture(new_texture)
+            new_image = mesh.render.render_colors(vertices, self.prn.triangles, new_colors, h, w, c = 3)
+            image = image * (1 - face_mask[:, :, np.newaxis]) + new_image * face_mask[:, :, np.newaxis]
+            image = np.clip(image, -1, 1) #must clip to (-1, 1)!
+        imsave(masked_face_path, image)
 
     def get_vertices(self, face_lms, image):
         """Get vertices
