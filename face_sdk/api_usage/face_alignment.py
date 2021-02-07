@@ -32,7 +32,8 @@ if __name__ == '__main__':
     try:
         faceAlignModelLoader = FaceAlignModelLoader(model_path, model_category, model_name)
     except Exception as e:
-        logger.info('Failed to parse model configuration file!')
+        logger.error('Failed to parse model configuration file!')
+        logger.error(e)
         sys.exit(-1)
     else:
         logger.info('Successfully parsed the model configuration file model_meta.json!')
@@ -41,6 +42,7 @@ if __name__ == '__main__':
         model, cfg = faceAlignModelLoader.load_model()
     except Exception as e:
         logger.error('Model loading failed!')
+        logger.error(e)
         sys.exit(-1)
     else:
         logger.info('Successfully loaded the face landmark model!')
@@ -70,6 +72,7 @@ if __name__ == '__main__':
             cv2.imwrite(save_path_img, image_show)
     except Exception as e:
         logger.error('Face landmark failed!')
+        logger.error(e)
         sys.exit(-1)
     else:
         logger.info('Successful face landmark!')
