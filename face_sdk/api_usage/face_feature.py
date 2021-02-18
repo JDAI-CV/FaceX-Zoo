@@ -33,7 +33,8 @@ if __name__ == '__main__':
     try:
         faceRecModelLoader = FaceRecModelLoader(model_path, model_category, model_name)
     except Exception as e:
-        logger.info('Failed to parse model configuration file!')
+        logger.error('Failed to parse model configuration file!')
+        logger.error(e)
         sys.exit(-1)
     else:
         logger.info('Successfully parsed the model configuration file model_meta.json!')
@@ -42,6 +43,7 @@ if __name__ == '__main__':
         model, cfg = faceRecModelLoader.load_model()
     except Exception as e:
         logger.error('Model loading failed!')
+        logger.error(e)
         sys.exit(-1)
     else:
         logger.info('Successfully loaded the face recognition model!')
@@ -55,6 +57,7 @@ if __name__ == '__main__':
         feature = faceRecModelHandler.inference_on_image(image)
     except Exception as e:
         logger.error('Failed to extract facial features!')
+        logger.error(e)
         sys.exit(-1)
     else:
         logger.info('Successfully extracted facial features!')

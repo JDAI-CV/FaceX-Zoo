@@ -40,12 +40,12 @@ if __name__ == '__main__':
     with open(args.data_conf_file) as f:
         data_conf = yaml.load(f)[args.test_set]
         pairs_file_path = data_conf['pairs_file_path']
-        croped_face_folder = data_conf['croped_face_folder']
+        cropped_face_folder = data_conf['cropped_face_folder']
         image_list_file_path = data_conf['image_list_file_path']
     # define pairs_parser_factory
     pairs_parser_factory = PairsParserFactory(pairs_file_path, args.test_set)
     # define dataloader
-    data_loader = DataLoader(CommonTestDataset(croped_face_folder, image_list_file_path, False), 
+    data_loader = DataLoader(CommonTestDataset(cropped_face_folder, image_list_file_path, False), 
                              batch_size=args.batch_size, num_workers=4, shuffle=False)
     #model def
     backbone_factory = BackboneFactory(args.backbone_type, args.backbone_conf_file)

@@ -3,11 +3,12 @@ FaceX-Zoo is a PyTorch toolbox for face recognition. It provides a training modu
   
 About the name:
 * "Face" - this repo is mainly for face recognition.
-* "X" - we also aim to provide something beyond face recognition, e.g. face paring, face lightning.
+* "X" - we also aim to provide something beyond face recognition, e.g. face parsing, face lightning.
 * "Zoo" - there include a lot of algorithms and models in this repo.
 ![image](data/images/arch.jpg)
 
 # What's New
+- [Feb. 2021] Mixed precision training by [apex](https://github.com/NVIDIA/apex) is supported. Please check [train_amp.py](training_mode/conventional_training/train_amp.py)
 - [Jan. 2021] We commit the initial version of FaceX-Zoo.
 
 # Requirements

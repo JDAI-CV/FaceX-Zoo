@@ -26,7 +26,7 @@ python api_usage/face_pipline.py # Run face recognition pipeline
 ```
 The results will be saved at [api_usage/temp](api_usage/temp)
 ## Update the models  
-* Step1: Train or finetune the new model and save it by the function **torch.save**.  
+* Step1: Train or finetune the new model and save it by the function **torch.save**, or convert the trained model by [model_convert.py](utils/model_convert.py).  
 * Step2: Create the configuration file **model_meta.json** according to the existing model.  
 * Step3: Put the model and the configuration file to the folder **models/face_xxx/face_xxx_version**. Here xxx refers to the corresponding function, e.g., detection, alignment and recognition.
 * Step4: Modify the model name according to your own model in [model_conf.yaml](config/model_conf.yaml).  

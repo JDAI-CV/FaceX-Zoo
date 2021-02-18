@@ -33,8 +33,8 @@
 (1) [backbone_conf.yaml](backbone_conf.yaml): the same with the one in training mode.  
 (2) [data_conf.yaml](data_conf.yaml)
 * pairs_file_path: the path of the official released pairs file.  
-* croped_face_folder: the directory which contains the  cropped faces.  
-* image_list_file_path: the path of the cropped face images, which is a path relative to croped_face_folder.  
+* cropped_face_folder: the directory which contains the  cropped faces.  
+* image_list_file_path: the path of the cropped face images, which is a path relative to cropped_face_folder.  
 * facescrub_list: the path of 'facescrub_features_list.json' released by MegaFace.  
 * megaceface_list: the path of 'megaface_features_list.json_1000000_1' released by MegaFace.  
 * facescrub_noises_file: the path of 'facescrub_noises.txt' released by insightface.  
@@ -69,7 +69,7 @@ Download these two files firstly: [facescrub2template_name.txt](../data/files/fa
 (3) Edit the config in [data_conf.yaml](data_conf.yaml).  
 ```yaml
 megaface-mask : 1
-masked_croped_face_folder: #the root folder of the cropped and masked facescrub.
+masked_cropped_face_folder: #the root folder of the cropped and masked facescrub.
 masked_image_list_file: #the relative path list of the facescrub.
 ```
 (4) Evaluation  
