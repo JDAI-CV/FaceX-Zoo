@@ -16,6 +16,7 @@ from head.CurricularFace import CurricularFace
 from head.MV_Softmax import MV_Softmax
 from head.NPCFace import NPCFace
 from head.SST_Prototype import SST_Prototype
+from head.ArcNegFace import ArcNegFace
 
 class HeadFactory:
     """Factory to produce head according to the head_conf.yaml
@@ -88,6 +89,12 @@ class HeadFactory:
             loss_type = self.head_param['loss_type'] # softmax, am-softmax, ...
             margin = self.head_param['margin'] # margin for certrain loss.
             head = SST_Prototype(feat_dim, queue_size, scale, loss_type, margin)
+        elif self.head_type == 'ArcNegFace':
+            feat_dim = self.head_param['feat_dim'] # dimension of the output features, e.g. 512 
+            num_class = self.head_param['num_class'] # number of classes in the training set.
+            margin = self.head_param['margin'] # cos(theta + margin).
+            scale = self.head_param['scale'] # the scaling factor for cosine values.
+            head = ArcNegFace(feat_dim, num_class, margin, scale)
         else:
             pass
         return head
