@@ -53,3 +53,9 @@ SST_Prototype:
     scale: 32.0
     loss_type: 'am_softmax'
     margin: 0.35
+
+ArcNegFace:
+    feat_dim: 512
+    num_class: 72778
+    margin: 0.5
+    scale: 64
