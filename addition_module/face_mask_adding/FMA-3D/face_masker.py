@@ -13,9 +13,9 @@ import torch
 import numpy as np
 from skimage.io import imread, imsave
 from skimage.transform import estimate_transform, warp
-from utils import mesh
 from utils import read_info
 from model.prnet import PRNet
+from utils.render import render_texture
 
 class PRN:
     """Process of PRNet.
@@ -125,6 +125,14 @@ class FaceMasker:
             template_name = image_name2template_name[image_name]
             self.add_mask_one(image_path, face_lms, template_name, masked_face_path)
 
+    # you can speed it up by a c++ version.
+    def render(self, vertices, new_colors, h, w):
+        vis_colors = np.ones((vertices.shape[0], 1))
+        face_mask = render_texture(vertices.T, vis_colors.T, self.prn.triangles.T, h, w, c=1)
+        face_mask = np.squeeze(face_mask > 0).astype(np.float32)
+        new_image = render_texture(vertices.T, new_colors.T, self.prn.triangles.T, h, w, c=3)
+        return face_mask, new_image
+        
     def add_mask_one(self, image_path, face_lms, template_name, masked_face_path):
         """Add mask to one image.
 
@@ -149,14 +157,13 @@ class FaceMasker:
                             interpolation=cv2.INTER_NEAREST, 
                             borderMode=cv2.BORDER_CONSTANT,borderValue=(0))
         new_texture = self.get_new_texture(ref_texture_src, uv_mask_src, texture)
-        #remap to input image.(render)
-        vis_colors = np.ones((vertices.shape[0], 1))
-        face_mask = mesh.render.render_colors(vertices, self.prn.triangles, vis_colors, h, w, c = 1)
-        face_mask = np.squeeze(face_mask > 0).astype(np.float32)
         new_colors = self.prn.get_colors_from_texture(new_texture)
-        new_image = mesh.render.render_colors(vertices, self.prn.triangles, new_colors, h, w, c = 3)
+        
+        # render
+        face_mask, new_image = self.render(vertices, new_colors, h, w)
         new_image = image * (1 - face_mask[:, :, np.newaxis]) + new_image * face_mask[:, :, np.newaxis]
         new_image = np.clip(new_image, -1, 1) #must clip to (-1, 1)!
+
         imsave(masked_face_path, new_image) 
 
     def get_vertices(self, face_lms, image):

@@ -7,7 +7,7 @@
 from face_masker import FaceMasker
 
 if __name__ == '__main__':
-    is_aug = True
+    is_aug = False
     image_path = 'Data/test-data/test1.jpg'
     face_lms_file = 'Data/test-data/test1_landmark.txt'
     template_name = '7.png'
