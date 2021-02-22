@@ -26,4 +26,4 @@ python setup.py build_ext -i
 ```
 
 # Reference  
-This project is mainly inspired by [PRNet](https://github.com/YadiraF/PRNet), [face3d](https://github.com/YadiraF/face3d) and [pytorch-prnet](https://github.com/liguohao96/pytorch-prnet)
+This project is mainly inspired by [PRNet](https://github.com/YadiraF/PRNet), and [pytorch-prnet](https://github.com/liguohao96/pytorch-prnet)
