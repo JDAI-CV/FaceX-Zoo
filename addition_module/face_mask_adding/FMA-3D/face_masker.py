@@ -96,7 +96,7 @@ class FaceMasker:
         """
         self.uv_face_path = 'Data/uv-data/uv_face_mask.png'
         self.mask_template_folder = 'Data/mask-data'
-        self.prn = PRN('model/prnet_pytorch.pth')
+        self.prn = PRN('model/prnet.pth')
         self.template_name2ref_texture_src, self.template_name2uv_mask_src = self.get_ref_texture_src()
         self.is_aug = is_aug
 
