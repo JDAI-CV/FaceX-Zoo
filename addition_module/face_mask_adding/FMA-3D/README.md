@@ -18,12 +18,10 @@ You can refer to [add_mask_one.py](add_mask_one.py) as an example.
 python add_mask_one.py
 ```
 
-# Note
-If you use a different version of Python, you should rebuild the mesh_core_cython.so as descriped in [face3d](https://github.com/YadiraF/face3d), 
-```sh
-cd utils/mesh/cython
-python setup.py build_ext -i 
-```
+# Speed Up
+Some advice:
+* Write the whole process by multi-processing.
+* Write the function of render in [face_masker.py](face_masker.py) by c++.
 
 # Reference  
-This project is mainly inspired by [PRNet](https://github.com/YadiraF/PRNet), and [pytorch-prnet](https://github.com/liguohao96/pytorch-prnet)
+This project is mainly inspired by [PRNet](https://github.com/YadiraF/PRNet).
