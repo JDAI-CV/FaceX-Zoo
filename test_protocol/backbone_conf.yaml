@@ -88,8 +88,8 @@ GhostNet:
 
 AttentionNet:
     stage1_modules: 1
-    stage2_modules: 1
-    stage3_modules: 1
+    stage2_modules: 2
+    stage3_modules: 3
     feat_dim: 512
     out_h: 7
     out_w: 7
@@ -97,5 +97,12 @@ AttentionNet:
 TF-NAS:
     feat_dim: 512
     drop_ratio: 0.2
+    out_h: 7
+    out_w: 7
+
+ResNeSt:
+    depth: 50
+    drop_ratio: 0.4
+    feat_dim: 512
     out_h: 7
     out_w: 7

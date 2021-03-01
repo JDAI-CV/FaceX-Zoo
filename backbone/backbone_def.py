@@ -14,7 +14,9 @@ from backbone.EfficientNets import efficientnet
 from backbone.HRNet import HighResolutionNet
 from backbone.GhostNet import GhostNet
 from backbone.AttentionNets import ResidualAttentionNet
+from backbone.AttentionNets_wj import AttentionNet
 from backbone.TF_NAS import TF_NAS_A
+from backbone.resnest.resnest import ResNeSt
 
 class BackboneFactory:
     """Factory to produce backbone according the backbone_conf.yaml.
@@ -78,12 +80,30 @@ class BackboneFactory:
             backbone = ResidualAttentionNet(
                 stage1_modules, stage2_modules, stage3_modules,
                 feat_dim, out_h, out_w)
+        elif self.backbone_type == 'AttentionNet_wj':
+            stage1_modules = self.backbone_param['stage1_modules'] # the number of attention modules in stage1.
+            stage2_modules = self.backbone_param['stage2_modules'] # the number of attention modules in stage2.
+            stage3_modules = self.backbone_param['stage3_modules'] # the number of attention modules in stage3.
+            image_size = self.backbone_param['image_size'] # input image size, e.g. 112.
+            feat_dim = self.backbone_param['feat_dim'] # dimension of the output features, e.g. 512.
+            out_h = self.backbone_param['out_h'] # height of the feature map before the final features.
+            out_w = self.backbone_param['out_w'] # width of the feature map before the final features.
+            backbone = AttentionNet(
+                stage1_modules, stage2_modules, stage3_modules,
+                image_size, feat_dim, out_h, out_w)
         elif self.backbone_type == 'TF-NAS':
             drop_ratio = self.backbone_param['drop_ratio'] # drop out ratio.
             out_h = self.backbone_param['out_h'] # height of the feature map before the final features.
             out_w = self.backbone_param['out_w'] # width of the feature map before the final features.
             feat_dim = self.backbone_param['feat_dim'] # dimension of the output features, e.g. 512.
             backbone = TF_NAS_A(out_h, out_w, feat_dim, drop_ratio)
+        elif self.backbone_type == 'ResNeSt':
+            depth = self.backbone_param['depth'] # depth of the ResNet, e.g. 50, 100, 152.
+            drop_ratio = self.backbone_param['drop_ratio'] # drop out ratio.
+            feat_dim = self.backbone_param['feat_dim'] # dimension of the output features, e.g. 512.
+            out_h = self.backbone_param['out_h'] # height of the feature map before the final features.
+            out_w = self.backbone_param['out_w'] # width of the feature map before the final features.
+            backbone = ResNeSt(depth, drop_ratio, feat_dim, out_h, out_w)
         else:
             pass
         return backbone
