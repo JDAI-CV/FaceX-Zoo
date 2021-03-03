@@ -35,10 +35,10 @@ This repo is mainly inspired by [InsightFace](https://github.com/deepinsight/ins
 # Citation
 Please consider citing our paper in your publications if the project helps your research. BibTeX reference is as follows.
 ```BibTeX
-@article{wang2021facex-zoo,
-  title={FaceX-Zoo: A PyTorch Toolbox for Face Recognition},
+@article{wang2021facex,
+  title={FaceX-Zoo: A PyTorh Toolbox for Face Recognition},
   author={Wang, Jun and Liu, Yinglu and Hu, Yibo and Shi, Hailin and Mei, Tao},
-  journal={arXix preprint arXiv:2101.04407},
+  journal={arXiv preprint arXiv:2101.04407},
   year={2021}
 }
 ```
