@@ -14,7 +14,6 @@ from backbone.EfficientNets import efficientnet
 from backbone.HRNet import HighResolutionNet
 from backbone.GhostNet import GhostNet
 from backbone.AttentionNets import ResidualAttentionNet
-from backbone.AttentionNets_wj import AttentionNet
 from backbone.TF_NAS import TF_NAS_A
 from backbone.resnest.resnest import ResNeSt
 
