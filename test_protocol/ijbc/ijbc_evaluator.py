@@ -13,9 +13,18 @@ from prettytable import PrettyTable
 from sklearn.metrics import roc_curve
 
 class IJBCEvaluator(object):
-    """
+    """Implementation of IJBC test protocal.
     """
     def __init__(self, template_media_list, template_pair_list, image_list, data_loader, feature_extractor):
+        """Init IJBCEvaluator.
+        
+        Args:
+            template_media_list(str): the path of 'ijbc_face_tid_mid.txt'
+            template_pair_list(str): the path of 'ijbc_template_pair_label.txt '
+            image_list(str): the path of 'img_list.txt'
+            data_loader(object): a test data loader.
+            feature_extractor(object): a feature extractor.            
+        """
         templates = []
         medias = []
         template_media_list_buf = open(template_media_list)
