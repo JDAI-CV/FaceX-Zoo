@@ -17,11 +17,6 @@ class Flatten(Module):
     def forward(self, input):
         return input.view(input.size(0), -1)
 
-def l2_norm(input,axis=1):
-    norm = torch.norm(input,2,axis,True)
-    output = torch.div(input, norm)
-    return output
-
 class SEModule(Module):
     def __init__(self, channels, reduction):
         super(SEModule, self).__init__()
@@ -144,4 +139,4 @@ class Resnet(Module):
         x = self.input_layer(x)
         x = self.body(x)
         x = self.output_layer(x)
-        return l2_norm(x)
+        return x

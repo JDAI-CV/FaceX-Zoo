@@ -64,6 +64,10 @@ def train_one_epoch(data_loader, model, optimizer, criterion, cur_epoch, loss_me
             outputs, lamda_lm = model.forward(images, labels)
             lamda_lm = torch.mean(lamda_lm)
             loss = criterion(outputs, labels) + lamda_lm
+        elif conf.head_type == 'MagFace':
+            outputs, loss_g = model.forward(images, labels)
+            loss_g = torch.mean(loss_g)
+            loss = criterion(outputs, labels) + loss_g
         else:
             outputs = model.forward(images, labels)
             loss = criterion(outputs, labels)

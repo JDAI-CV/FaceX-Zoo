@@ -49,6 +49,7 @@ The models and training logs mentioned in our technical report are listed as fol
 | [CurricularFace](https://arxiv.org/abs/2004.00288) | 99.60 | 83.03 | 93.75 | 95.82 | 87.27 | [Google](https://drive.google.com/drive/folders/1WE6kXxk43tIgK4AEROH9l0sOagIbsjSj?usp=sharing),[Baidu](https://pan.baidu.com/s/1Dakz7ldswhrp6Ypg2c4R7w):iru3 |
 | [CircleLoss](https://arxiv.org/abs/2002.10857)     | 99.57 | 83.42 | 94.00 | 95.73 | 88.75 | [Google](https://drive.google.com/drive/folders/1pGgugVRuEo0oKr3zy4C4_X1b2P6wpPI5?usp=sharing),[Baidu](https://pan.baidu.com/s/1wXOi6sgZV6NvJCHmBQzSvQ):mj00 |
 | [NPCFace](https://arxiv.org/abs/2007.10172)        | 99.55 | 83.80 | 94.13 | 95.87 | 89.13 | [Google](https://drive.google.com/drive/folders/1pc6IyqyPY4VvNft_xcuFu3wHuiaqQZ0S?usp=sharing),[Baidu](https://pan.baidu.com/s/1d43HBsonKl8xx3xwI6iblA):2hih |
+| [MagFace](https://arxiv.org/pdf/2103.06627.pdf)    | 99.53 | 84.32 | 94.03 | 95.82 | 89.85 | [Google](),[Baidu]():2hih |
 
 ### 3.3 Shallow Face Learning
 | Training Mode | LFW | CPLFW | CALFW | AgeDb | Models&Logs |

@@ -14,11 +14,6 @@ class Flatten(Module):
     def forward(self, input):
         return input.view(input.size(0), -1)
 
-def l2_norm(input,axis=1):
-    norm = torch.norm(input,2,axis,True)
-    output = torch.div(input, norm)
-    return output
-
 class Conv_block(Module):
     def __init__(self, in_c, out_c, kernel=(1, 1), stride=(1, 1), padding=(0, 0), groups=1):
         super(Conv_block, self).__init__()
@@ -103,4 +98,4 @@ class MobileFaceNet(Module):
         out = self.conv_6_flatten(out)
         out = self.linear(out)
         out = self.bn(out)
-        return l2_norm(out)
+        return out

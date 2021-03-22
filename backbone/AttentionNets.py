@@ -18,11 +18,6 @@ class Flatten(nn.Module):
     def forward(self, x):
         return x.view(x.size(0), -1)
 
-def l2_norm(x, axis=1):
-    norm = torch.norm(x, 2, axis, True)
-    output = x / norm
-    return output
-
 class ResidualBlock(nn.Module):
     def __init__(self, input_channels, output_channels, stride=1):
         super(ResidualBlock, self).__init__()
@@ -242,4 +237,4 @@ class ResidualAttentionNet(nn.Module):
         out = self.conv1(x)
         out = self.attention_body(out)
         out = self.output_layer(out)
-        return l2_norm(out)
+        return out

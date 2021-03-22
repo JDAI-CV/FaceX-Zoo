@@ -30,6 +30,7 @@ class MV_Softmax(Module):
 
     def forward(self, x, label):
         kernel_norm = F.normalize(self.weight, dim=0)
+        x = F.normalize(x)
         cos_theta = torch.mm(x, kernel_norm)
         batch_size = label.size(0)
         gt = cos_theta[torch.arange(0, batch_size), label].view(-1, 1) 

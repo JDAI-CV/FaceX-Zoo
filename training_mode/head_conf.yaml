@@ -21,6 +21,17 @@ ArcFace:
     margin_am: 0.0
     scale: 32
 
+MagFace:
+    feat_dim: 512
+    num_class: 72778
+    margin_am: 0.0
+    scale: 64
+    l_a: 10
+    u_a: 110
+    l_margin: 0.45
+    u_margin: 0.8
+    lamda: 20
+
 CircleLoss:
     feat_dim: 512
     num_class: 72778

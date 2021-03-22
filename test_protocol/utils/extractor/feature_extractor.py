@@ -8,6 +8,7 @@ import os
 import logging as logger
 import numpy as np
 import torch
+import torch.nn.functional as F
 logger.basicConfig(level=logger.INFO, 
                    format='%(levelname)s %(asctime)s %(filename)s: %(lineno)d] %(message)s',
                    datefmt='%Y-%m-%d %H:%M:%S')
@@ -36,7 +37,9 @@ class CommonExtractor:
         with torch.no_grad(): 
             for batch_idx, (images, filenames) in enumerate(data_loader):
                 images = images.to(self.device)
-                features = model(images).cpu().numpy()
+                features = model(images)
+                features = F.normalize(features)
+                features = features.cpu().numpy()
                 for filename, feature in zip(filenames, features): 
                     image_name2feature[filename] = feature
         return image_name2feature
@@ -53,7 +56,9 @@ class CommonExtractor:
         with torch.no_grad():
             for batch_idx, (images, filenames) in enumerate(data_loader):
                 images = images.to(self.device)
-                features = model(images).cpu().numpy()
+                features = model(images)
+                features = F.normalize(features)
+                features = features.cpu().numpy()
                 for filename, feature in zip(filenames, features):
                     feature_name = os.path.splitext(filename)[0]
                     feature_path = os.path.join(feats_root, feature_name + '.npy')

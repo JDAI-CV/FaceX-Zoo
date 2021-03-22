@@ -26,11 +26,6 @@ class Flatten(Module):
     def forward(self, x):
         return x.view(x.size(0), -1)
 
-def l2_norm(x, axis=1):
-    norm = torch.norm(x, 2, axis, True)
-    output = x / norm
-    return output
-
 def conv3x3(in_planes, out_planes, stride=1):
     """3x3 convolution with padding"""
     return nn.Conv2d(in_planes, out_planes, kernel_size=3, stride=stride,
@@ -501,7 +496,7 @@ class HighResolutionNet(nn.Module):
         y = self.classifier(y)
         '''
         y = self.output_layer(y)
-        return l2_norm(y)
+        return y
 
     def init_weights(self, pretrained='',):
         logger.info('=> init weights from normal distribution')

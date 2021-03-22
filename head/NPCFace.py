@@ -31,6 +31,7 @@ class NPCFace(Module):
 
     def forward(self, x, label): 
         kernel_norm = F.normalize(self.kernel, dim=0)
+        x = F.normalize(x)
         cos_theta = torch.mm(x, kernel_norm)
         cos_theta = cos_theta.clamp(-1, 1) 
         batch_size = label.size(0)

@@ -396,13 +396,6 @@ class MBInvertedResBlock(nn.Module):
 
 		return x
 
-
-def l2_norm(x, axis=1):
-	norm = torch.norm(x, 2, axis, True)
-	output = torch.div(x, norm)
-	return output
-
-
 class Flatten(nn.Module):
 	def forward(self, x):
 		return x.view(x.size(0), -1)
@@ -455,25 +448,23 @@ class TF_NAS_A(nn.Module):
 		self._initialization()
 
 	def forward(self, x):
-		x = self.first_stem(x)
-		x = self.second_stem(x)
-
-		for block in self.stage1:
-			x = block(x)
-		for block in self.stage2:
-			x = block(x)
-		for block in self.stage3:
-			x = block(x)
-		for block in self.stage4:
-			x = block(x)
-		for block in self.stage5:
-			x = block(x)
-		for block in self.stage6:
-			x = block(x)
-
-		x = self.feature_mix_layer(x)
-		x = self.output_layer(x)
-		return l2_norm(x)
+                x = self.first_stem(x)
+                x = self.second_stem(x)
+                for block in self.stage1:
+                        x = block(x)
+                for block in self.stage2:
+                        x = block(x)
+                for block in self.stage3:
+                        x = block(x)
+                for block in self.stage4:
+                        x = block(x)
+                for block in self.stage5:
+                        x = block(x)
+                for block in self.stage6:
+                        x = block(x)
+                x = self.feature_mix_layer(x)
+                x = self.output_layer(x)
+                return x
 
 	def _initialization(self):
 		for m in self.modules():

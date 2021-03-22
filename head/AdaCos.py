@@ -24,6 +24,8 @@ class AdaCos(nn.Module):
     def forward(self, feats, labels):
         # normalize weights
         W = F.normalize(self.W)
+        # normalize feats
+        feats = F.normalize(feats)
         # dot product
         logits = F.linear(feats, W)
         # feature re-scale

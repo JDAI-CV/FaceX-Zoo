@@ -19,6 +19,7 @@ class AM_Softmax(Module):
         self.scale = scale
     def forward(self, feats, labels):
         kernel_norm = F.normalize(self.weight, dim=0)
+        feats = F.normalize(feats)
         cos_theta = torch.mm(feats, kernel_norm) 
         cos_theta = cos_theta.clamp(-1, 1)
         cos_theta_m = cos_theta - self.margin

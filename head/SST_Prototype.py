@@ -61,7 +61,11 @@ class SST_Prototype(Module):
                 id_set.add(label)
         return id_set
 
-    def forward(self, p1, g2, p2, g1, cur_ids): 
+    def forward(self, p1, g2, p2, g1, cur_ids):
+        p1 = F.normalize(p1)
+        g2 = F.normalize(g2)
+        p2 = F.normalize(p2)
+        g1 = F.normalize(g1)
         batch_size = p1.shape[0]
         label = (torch.LongTensor([range(batch_size)]) + self.index)
         label = label.squeeze().cuda()

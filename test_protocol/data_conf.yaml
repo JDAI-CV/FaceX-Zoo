@@ -49,3 +49,9 @@ MegaFace:
     masked_cropped_face_folder: /export2/wangjun492/face_database/facex-zoo/private_file/test_data/megaface/face_crop_arcface
     masked_image_list_file: /export2/wangjun492/face_database/facex-zoo/private_file/test_data/megaface/face_crop_arcface/masked_facescrub_crop/img_list.txt
     
+IJBC:
+    cropped_face_folder: /export2/wangjun492/face_database/facex-zoo/private_file/test_data/ijbc/arcface_crop
+    image_list_file_path: /export2/wangjun492/face_database/facex-zoo/private_file/test_data/ijbc/img_list.txt
+    template_media_list_path: /export2/wangjun492/face_database/facex-zoo/private_file/test_data/ijbc/ijbc_face_tid_mid.txt
+    template_pair_list_path: /export2/wangjun492/face_database/facex-zoo/private_file/test_data/ijbc/ijbc_template_pair_label.txt
+    image_score_list_path: /export2/wangjun492/face_database/facex-zoo/private_file/test_data/ijbc/ijbc_name_5pts_score.txt

@@ -626,11 +626,6 @@ def load_pretrained_weights(model, model_name, weights_path=None, load_fc=True, 
 
     print('Loaded pretrained weights for {}'.format(model_name))
 
-def l2_norm(input,axis=1):
-    norm = torch.norm(input,2,axis,True)
-    output = torch.div(input, norm)
-    return output
-
 class Flatten(Module):
     def forward(self, input):
         return input.view(input.size(0), -1)
@@ -942,7 +937,7 @@ class EfficientNet(nn.Module):
             #x = self._fc(x)
         '''
         x = self.output_layer(x)
-        return l2_norm(x)
+        return x
 
     @classmethod
     def from_name(cls, model_name, in_channels=3, **override_params):

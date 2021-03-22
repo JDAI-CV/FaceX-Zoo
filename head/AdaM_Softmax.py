@@ -21,6 +21,7 @@ class Adam_Softmax(Module):
         self.adam.data.uniform_(0.3,0.4) 
     def forward(self, feats, labels):
         kernel_norm = F.normalize(self.kernel, dim=0)
+        feats = F.normalize(feats)
         cos_theta = torch.mm(feats, kernel_norm)
         cos_theta = cos_theta.clamp(-1,1)
         # margin in [0,1] for cosface.

@@ -28,11 +28,6 @@ class Flatten(Module):
     def forward(self, input):
         return input.view(input.size(0), -1)
 
-def l2_norm(x, axis=1): 
-    norm = torch.norm(x, 2, axis, True) 
-    output = x / norm
-    return output
-
 def _make_divisible(v, divisor, min_value=None):
     """
     This function is taken from the original tf repo.
@@ -250,4 +245,4 @@ class GhostNet(nn.Module):
         x = self.act1(x)
         x = self.blocks(x)
         x = self.output_layer(x)
-        return l2_norm(x)
+        return x
