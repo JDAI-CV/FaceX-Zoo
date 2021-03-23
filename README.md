@@ -8,7 +8,7 @@ About the name:
 ![image](data/images/arch.jpg)
 
 # What's New
-- [Mar. 2021] [ResNeSt](https://hangzhang.org/files/resnest.pdf) has been added to the backbones.
+- [Mar. 2021] [ResNeSt](https://hangzhang.org/files/resnest.pdf) and [ReXNet](https://arxiv.org/pdf/2007.00992.pdf) have been added to the backbones, [MagFace](https://arxiv.org/pdf/2103.06627.pdf) has been added to the heads. 
 - [Feb. 2021] Mixed precision training by [apex](https://github.com/NVIDIA/apex) is supported. Please check [train_amp.py](training_mode/conventional_training/train_amp.py)
 - [Jan. 2021] We commit the initial version of FaceX-Zoo.
 
