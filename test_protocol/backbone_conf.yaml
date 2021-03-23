@@ -106,3 +106,15 @@ ResNeSt:
     feat_dim: 512
     out_h: 7
     out_w: 7
+
+ReXNet:
+    input_ch: 16
+    final_ch: 180
+    width_mult: 1.0
+    depth_mult: 1.0
+    use_se: 0
+    se_ratio: 12
+    out_h: 7
+    out_w: 7
+    feat_dim: 512
+    dropout_ratio: 0.2

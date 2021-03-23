@@ -16,6 +16,7 @@ from backbone.GhostNet import GhostNet
 from backbone.AttentionNets import ResidualAttentionNet
 from backbone.TF_NAS import TF_NAS_A
 from backbone.resnest.resnest import ResNeSt
+from backbone.ReXNets import ReXNetV1
 
 class BackboneFactory:
     """Factory to produce backbone according the backbone_conf.yaml.
@@ -103,6 +104,19 @@ class BackboneFactory:
             out_h = self.backbone_param['out_h'] # height of the feature map before the final features.
             out_w = self.backbone_param['out_w'] # width of the feature map before the final features.
             backbone = ResNeSt(depth, drop_ratio, feat_dim, out_h, out_w)
+        elif self.backbone_type == 'ReXNet':
+            input_ch = self.backbone_param['input_ch']
+            final_ch = self.backbone_param['final_ch']
+            width_mult = self.backbone_param['width_mult']
+            depth_mult = self.backbone_param['depth_mult']
+            use_se = True if self.backbone_param['use_se']==1 else False
+            se_ratio = self.backbone_param['se_ratio']
+            out_h = self.backbone_param['out_h']
+            out_w = self.backbone_param['out_w']
+            feat_dim = self.backbone_param['feat_dim']
+            dropout_ratio = self.backbone_param['dropout_ratio']
+            backbone = ReXNetV1(input_ch, final_ch, width_mult, depth_mult, use_se, se_ratio,
+                                out_h, out_w, feat_dim, dropout_ratio)
         else:
             pass
         return backbone
