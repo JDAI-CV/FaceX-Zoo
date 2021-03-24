@@ -8,6 +8,7 @@ import sys
 import yaml
 sys.path.append('../../')
 from loss.logits import Logits
+from loss.st import SoftTarget
 
 class KDLossFactory:
     """Factory to produce head according to the head_conf.yaml
@@ -26,6 +27,8 @@ class KDLossFactory:
     def get_kd_loss(self):
         if self.loss_type == 'Logits':
             loss = Logits()
+        elif self.loss_type == 'SoftTarget':
+            loss = SoftTarget(T)
         else:
             pass
         return loss
