@@ -1,0 +1,72 @@
+AdaCos:
+    feat_dim: 512
+    num_class: 72778
+
+AdaM-Softmax:
+    feat_dim: 512
+    num_class: 72778
+    scale: 32
+    lamda: 70.0
+
+AM-Softmax:
+    feat_dim: 512
+    num_class: 72778
+    margin: 0.35
+    scale: 32
+
+ArcFace:
+    feat_dim: 512
+    num_class: 72778
+    margin_arc: 0.35
+    margin_am: 0.0
+    scale: 32
+
+MagFace:
+    feat_dim: 512
+    num_class: 72778
+    margin_am: 0.0
+    scale: 64
+    l_a: 10
+    u_a: 110
+    l_margin: 0.45
+    u_margin: 0.8
+    lamda: 20
+
+CircleLoss:
+    feat_dim: 512
+    num_class: 72778
+    margin: 0.25
+    gamma: 256
+
+CurricularFace:
+    feat_dim: 512
+    num_class: 72778
+    margin: 0.5
+    scale: 64
+
+MV-Softmax:
+    feat_dim: 512
+    num_class: 72778
+    is_am: 1
+    margin: 0.35
+    mv_weight: 1.12
+    scale: 32
+
+NPCFace:
+    feat_dim: 512
+    num_class: 72778
+    margin: 0.35
+    scale: 32
+
+SST_Prototype:
+    feat_dim: 512
+    queue_size: 16384 #is divisible by batch size.
+    scale: 32.0
+    loss_type: 'am_softmax'
+    margin: 0.35
+
+ArcNegFace:
+    feat_dim: 512
+    num_class: 72778
+    margin: 0.5
+    scale: 64
