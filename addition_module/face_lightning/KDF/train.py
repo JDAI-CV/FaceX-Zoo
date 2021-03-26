@@ -47,7 +47,7 @@ class FaceModel(torch.nn.Module):
     def forward(self, data, label):
         feat = self.backbone.forward(data)
         pred = self.head.forward(feat, label)
-        return pred
+        return feat, pred
 
 def get_lr(optimizer):
     """Get the current learning rate from optimizer. 
@@ -63,11 +63,14 @@ def train_one_epoch(data_loader, teacher_model, student_model, optimizer,
         images = images.to(conf.device)
         labels = labels.to(conf.device)
         labels = labels.squeeze()
-        outputs_student = student_model.forward(images, labels)
-        loss_cls = criterion(outputs_student, labels)
+        feats_s, preds_s = student_model.forward(images, labels)
+        loss_cls = criterion(preds_s, labels)
         with torch.no_grad():
-            outputs_teacher = teacher_model.forward(images, labels)
-        loss_kd = criterion_kd(outputs_student, outputs_teacher.detach()) * args.lambda_kd
+            feats_t, preds_t = teacher_model.forward(images, labels)
+        if conf.loss_type == 'PKT':
+            loss_kd = criterion_kd(feats_s, feats_t.detach()) * args.lambda_kd
+        else:
+            loss_kd = criterion_kd(preds_s, preds_t.detach()) * args.lambda_kd
         loss = loss_cls + loss_kd        
         optimizer.zero_grad()
         loss.backward()

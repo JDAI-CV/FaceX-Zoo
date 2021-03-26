@@ -1,16 +1,16 @@
 mkdir 'log'
 python3 train.py \
-    --data_root '/home/wangjun492/wj_data/facex-zoo/private_file/train_data/deepglint/msra_crop' \
-    --train_file '/home/wangjun492/wj_data/facex-zoo/private_file/train_data/deepglint/msceleb_deepglint_train_file.txt' \
+    --data_root '/export/home/wangjun492/wj_data/faceX-Zoo/deepglint/msra_crop' \
+    --train_file '/export/home/wangjun492/wj_data/faceX-Zoo/deepglint/msceleb_deepglint_train_file.txt' \
     --student_backbone_type 'MobileFaceNet' \
     --teacher_backbone_type 'ResNet152-irse' \
     --backbone_conf_file 'backbone_conf.yaml' \
     --head_type 'MV-Softmax' \
     --head_conf_file 'head_conf.yaml' \
-    --loss_type 'Logits' \
+    --loss_type 'PKT' \
     --loss_conf_file 'loss_conf.yaml' \
     --lr 0.1 \
-    --lambda_kd 1.0 \
+    --lambda_kd 1e6 \
     --out_dir 'out_dir' \
     --epoches 18 \
     --step '10, 13, 16' \
