@@ -29,6 +29,7 @@ class KDLossFactory:
         if self.loss_type == 'Logits':
             loss = Logits()
         elif self.loss_type == 'SoftTarget':
+            T = self.loss_param['T']
             loss = SoftTarget(T)
         elif self.loss_type == 'PKT':
             loss = PKTCosSim()
