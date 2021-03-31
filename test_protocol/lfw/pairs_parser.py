@@ -58,6 +58,36 @@ class LFW_PairsParser(PairsParser):
             line = pairs_file_buf.readline().strip()
         return test_pair_list
 
+class RFW_PairsParser(PairsParser):
+    """The pairs parser for lfw.
+    """
+    def parse_pairs(self):
+        test_pair_list = []
+        pairs_file_buf = open(self.pairs_file)
+        line = pairs_file_buf.readline().strip()
+        while line:
+            line_strs = line.split('\t')
+            if len(line_strs) == 3:
+                person_name = line_strs[0]
+                image_index1 = line_strs[1]
+                image_index2 = line_strs[2]
+                image_name1 = person_name + '/' + person_name + '_' + image_index1.zfill(4) + '.jpg'
+                image_name2 = person_name + '/' + person_name + '_' + image_index2.zfill(4) + '.jpg'
+                label = 1
+            elif len(line_strs) == 4:
+                person_name1 = line_strs[0]
+                image_index1 = line_strs[1]
+                person_name2 = line_strs[2]
+                image_index2 = line_strs[3]
+                image_name1 = person_name1 + '/' + person_name1 + '_' + image_index1.zfill(4) + '.jpg'
+                image_name2 = person_name2 + '/' + person_name2 + '_' + image_index2.zfill(4) + '.jpg'
+                label = 0
+            else:
+                raise Exception('Line error: %s.' % line)
+            test_pair_list.append((image_name1, image_name2, label))
+            line = pairs_file_buf.readline().strip()
+        return test_pair_list
+
 class CPLFW_PairsParser(PairsParser):
     """The pairs parser for cplfw.
     """
@@ -149,7 +179,7 @@ class PairsParserFactory(object):
         self.pairs_file = pairs_file
         self.test_set = test_set
     def get_parser(self):
-        if self.test_set == 'LFW' or ('RFW' in self.test_set):
+        if self.test_set == 'LFW':
             pairs_parser =  LFW_PairsParser(self.pairs_file)
         elif self.test_set == 'CPLFW':
             pairs_parser = CPLFW_PairsParser(self.pairs_file)
@@ -157,6 +187,8 @@ class PairsParserFactory(object):
             pairs_parser = CALFW_PairsParser(self.pairs_file)
         elif self.test_set == 'AgeDB30':
             pairs_parser = AgeDB_PairsParser(self.pairs_file)
+        elif 'RFW' in self.test_set:
+            pairs_parser = RFW_PairsParser(self.pairs_file)
         else:
             pairs_parser = None
         return pairs_parser
