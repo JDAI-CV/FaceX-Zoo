@@ -1,7 +1,7 @@
 import torch
 import torch.nn as nn
 
-def define_paraphraser(in_channels_t, k, use_bn, cuda=True):
+def define_paraphraser(in_channels_t, k, use_bn=True, cuda=True):
 	net = paraphraser(in_channels_t, k, use_bn)
 	if cuda:
 		net = torch.nn.DataParallel(net).cuda()

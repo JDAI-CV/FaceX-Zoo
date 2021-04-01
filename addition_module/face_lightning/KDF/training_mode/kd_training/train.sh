@@ -1,5 +1,5 @@
 mkdir 'log'
-python3 train.py \
+python train_ft.py \
     --data_root '/export2/wangjun492/face_database/facex-zoo/private_file/train_data/deepglint/msra_crop' \
     --train_file '/export2/wangjun492/face_database/facex-zoo/private_file/train_data/deepglint/msceleb_deepglint_train_file.txt' \
     --teacher_backbone_type 'ResNet' \

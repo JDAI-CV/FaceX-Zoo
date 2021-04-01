@@ -8,17 +8,19 @@ import sys
 import shutil
 import argparse
 import logging as logger
+from itertools import chain
 
 import torch
 from torch import optim
 from torch.utils.data import DataLoader
 from tensorboardX import SummaryWriter
 
+sys.path.append('../../')
 from backbone.backbone_def import BackboneFactory
 from loss.loss_def import KDLossFactory
 from utils.net_util import define_paraphraser, define_translator
 
-sys.path.append('../../../')
+sys.path.append('../../../../../')
 from utils.AverageMeter import AverageMeter
 from data_processor.train_dataset import ImageDataset
 from head.head_def import HeadFactory
@@ -34,7 +36,7 @@ class FaceModel(torch.nn.Module):
         backbone(object): the backbone of face model.
         head(object): the head of face model.
     """
-    def __init__(self, backbone_factory, backbone_type, head_factory):
+    def __init__(self, backbone_factory, head_factory):
         """Init face model by backbone factorcy and head factory.
         
         Args:
@@ -42,13 +44,13 @@ class FaceModel(torch.nn.Module):
             head_factory(object): produce a head according to config files.
         """
         super(FaceModel, self).__init__()
-        self.backbone = backbone_factory.get_backbone(backbone_type)
+        self.backbone = backbone_factory.get_backbone()
         self.head = head_factory.get_head()
 
     def forward(self, data, label):
-        feat = self.backbone.forward(data)
+        out_stage1, out_stage2, out_stage3, out_stage4, feat = self.backbone.forward(data)
         pred = self.head.forward(feat, label)
-        return feat, pred
+        return out_stage1, out_stage2, out_stage3, out_stage4, feat, pred
 
 def get_lr(optimizer):
     """Get the current learning rate from optimizer. 
@@ -56,56 +58,42 @@ def get_lr(optimizer):
     for param_group in optimizer.param_groups:
         return param_group['lr']
 
-def train_para(train_loader, nets, optimizer_para, criterionPara, total_epoch):
-	tnet        = nets['tnet']
-	paraphraser = nets['paraphraser']
-	paraphraser.train()
-	for epoch in range(1, total_epoch+1):
-		batch_time  = AverageMeter()
-		data_time   = AverageMeter()
-		para_losses = AverageMeter()
-		epoch_start_time = time.time()
-		end = time.time()
-		for i, (img, _) in enumerate(train_loader, start=1):
-			data_time.update(time.time() - end)
-			if args.cuda:
-				img = img.cuda()
-			_, _, _, rb3_t, _, _ = tnet(img)
-			_, rb3_t_rec = paraphraser(rb3_t[1].detach())
-			para_loss = criterionPara(rb3_t_rec, rb3_t[1].detach())
-			para_losses.update(para_loss.item(), img.size(0))
-			optimizer_para.zero_grad()
-			para_loss.backward()
-			optimizer_para.step()
-			batch_time.update(time.time() - end)
-			end = time.time()
-			if i % args.print_freq == 0:
-				log_str = ('Epoch[{0}]:[{1:03}/{2:03}] '
-						   'Time:{batch_time.val:.4f} '
-						   'Data:{data_time.val:.4f}  '
-						   'Para:{para_losses.val:.4f}({para_losses.avg:.4f})'.format(
-						   epoch, i, len(train_loader), batch_time=batch_time, data_time=data_time,
-						   para_losses=para_losses))
-				logging.info(log_str)
-		epoch_duration = time.time() - epoch_start_time
-		logging.info('Epoch time: {}s'.format(int(epoch_duration)))
+def train_para(train_loader, teacher_model, paraphraser, optimizer_para, criterionPara, total_epoch, conf):
+    para_losses = AverageMeter()
+    paraphraser.train()
+    for epoch in range(1, total_epoch+1):
+        for batch_idx, (images, labels) in enumerate(train_loader):
+            images = images.to(conf.device)
+            with torch.no_grad():
+                _, _, _, outputs, _, _ = teacher_model(images, labels)
+            _, outputs_rec = paraphraser(outputs.detach())
+            para_loss = criterionPara(outputs_rec, outputs.detach())
+            para_losses.update(para_loss.item(), images.size(0))
+            optimizer_para.zero_grad()
+            para_loss.backward()
+            optimizer_para.step()
+            if batch_idx % conf.print_freq == 0:
+                para_loss_avg = para_losses.avg
+                lr = get_lr(optimizer_para)
+                logger.info('Epoch %d, iter %d/%d, lr %f, loss_para %f.' %
+                            (epoch, batch_idx, len(train_loader), lr, para_loss_avg))
+                para_losses.reset()
 
-def train_one_epoch(data_loader, teacher_model, student_model, optimizer, 
-                        criterion, criterion_kd, cur_epoch, loss_cls_meter, loss_kd_meter, conf):
+def train_one_epoch(data_loader, teacher_model, paraphraser, student_model, translator, optimizer, 
+                    criterion, criterion_kd, cur_epoch, loss_cls_meter, loss_kd_meter, conf):
     """Tain one epoch by traditional training.
     """
     for batch_idx, (images, labels) in enumerate(data_loader):
         images = images.to(conf.device)
         labels = labels.to(conf.device)
         labels = labels.squeeze()
-        feats_s, preds_s = student_model.forward(images, labels)
+        _, _, _, outputs_s, feats_s, preds_s = student_model.forward(images, labels)
+        factor_s = translator(outputs_s)
         loss_cls = criterion(preds_s, labels)
         with torch.no_grad():
-            feats_t, preds_t = teacher_model.forward(images, labels)
-        if conf.loss_type == 'PKT':
-            loss_kd = criterion_kd(feats_s, feats_t.detach()) * args.lambda_kd
-        else:
-            loss_kd = criterion_kd(preds_s, preds_t.detach()) * args.lambda_kd
+            _, _, _, outputs_t, feats_t, preds_t = teacher_model.forward(images, labels)
+            factor_t, _ = paraphraser(outputs_t)
+        loss_kd  = criterion_kd(factor_s, factor_t.detach()) * args.lambda_kd
         loss = loss_cls + loss_kd        
         optimizer.zero_grad()
         loss.backward()
@@ -142,45 +130,42 @@ def train_one_epoch(data_loader, teacher_model, student_model, optimizer,
 def train(conf):
     """Total training procedure.
     """
+    conf.device = torch.device('cuda:0')
     data_loader = DataLoader(ImageDataset(conf.data_root, conf.train_file), 
                              conf.batch_size, True, num_workers = 4)
 
-    paraphraser = define_paraphraser(in_channels_t, args.k, use_bn, args.cuda)
-    translator = define_translator(in_channels_s, in_channels_t, args.k, use_bn, args.cuda)
-    optimizer_para = torch.optim.SGD(paraphraser.parameters(),
-         lr = args.lr * 0.1, 
-         momentum = args.momentum, 
-         weight_decay = args.weight_decay)
-    criterionPara = torch.nn.MSELoss().cuda()
-    logging.info('The first stage, training the paraphraser......')
-    train_para(data_loader, nets, optimizer_para, criterionPara, 30)
-    paraphraser.eval()
-    for param in paraphraser.parameters():
-        param.requires_grad = False
-    logging.info('The second stage, training the student network......')
-
-
-
-
-
-
-
-
-
-
-    conf.device = torch.device('cuda:0')
-    criterion = torch.nn.CrossEntropyLoss().cuda(conf.device)
-    backbone_factory = BackboneFactory(conf.backbone_conf_file)    
+    # define head factory.
     head_factory = HeadFactory(conf.head_type, conf.head_conf_file)
-    kd_loss_factory = KDLossFactory(conf.loss_type, conf.loss_conf_file)
-    criterion_kd = kd_loss_factory.get_kd_loss().cuda(conf.device)
 
-    backbone_factory = BackboneFactory(conf.backbone_conf_file)
-    teacher_model = FaceModel(backbone_factory, args.teacher_backbone_type, head_factory)
+    # define teacher model.
+    teacher_backbone_factory = BackboneFactory(conf.teacher_backbone_type, conf.teacher_backbone_conf_file)
+    teacher_model = FaceModel(teacher_backbone_factory, head_factory)
     state_dict = torch.load(args.pretrained_teacher)['state_dict']
     teacher_model.load_state_dict(state_dict)
     teacher_model = torch.nn.DataParallel(teacher_model).cuda()
-    student_model = FaceModel(backbone_factory, args.student_backbone_type, head_factory)
+
+    # define and train the paraphraser
+    paraphraser = define_paraphraser(512, k=0.5)
+    optimizer_para = torch.optim.SGD(paraphraser.parameters(),
+                                     lr = args.lr * 0.1, 
+                                     momentum = args.momentum, 
+                                     weight_decay = 1e-4)
+    criterionPara = torch.nn.MSELoss().cuda()
+    logger.info('The first stage, training the paraphraser......')
+    train_para(data_loader, teacher_model, paraphraser, optimizer_para, criterionPara, 2, conf)
+    paraphraser.eval()
+    for param in paraphraser.parameters():
+        param.requires_grad = False
+    logger.info('The second stage, training the student network......')
+
+    translator = define_translator(512, 512, k=0.5)
+    criterion = torch.nn.CrossEntropyLoss().cuda(conf.device)
+    kd_loss_factory = KDLossFactory(conf.loss_type, conf.loss_conf_file)
+    criterion_kd = kd_loss_factory.get_kd_loss().cuda(conf.device)
+    
+    # define student model
+    student_backbone_factory = BackboneFactory(conf.student_backbone_type, conf.student_backbone_conf_file)
+    student_model = FaceModel(student_backbone_factory, head_factory)
     ori_epoch = 0
     if conf.resume:
         ori_epoch = torch.load(args.pretrain_model)['epoch'] + 1
@@ -188,7 +173,7 @@ def train(conf):
         student_model.load_state_dict(state_dict)
     student_model = torch.nn.DataParallel(student_model).cuda()
     parameters = [p for p in student_model.parameters() if p.requires_grad]
-    optimizer = optim.SGD(parameters, lr = conf.lr, 
+    optimizer = optim.SGD(chain(parameters, translator.parameters()), lr = conf.lr, 
                           momentum = conf.momentum, weight_decay = 1e-4)
     lr_schedule = optim.lr_scheduler.MultiStepLR(
         optimizer, milestones = conf.milestones, gamma = 0.1)
@@ -196,7 +181,7 @@ def train(conf):
     loss_kd_meter = AverageMeter()
     student_model.train()
     for epoch in range(ori_epoch, conf.epoches):
-        train_one_epoch(data_loader, teacher_model, student_model, optimizer, 
+        train_one_epoch(data_loader, teacher_model, paraphraser, student_model, translator, optimizer, 
                         criterion, criterion_kd, epoch, loss_cls_meter, loss_kd_meter, conf)
         lr_schedule.step()                        
 
@@ -206,11 +191,13 @@ if __name__ == '__main__':
                       help = "The root folder of training set.")
     conf.add_argument("--train_file", type = str,  
                       help = "The training file path.")
-    conf.add_argument("--student_backbone_type", type = str, 
-                      help = "Mobilefacenets, Resnet.")
     conf.add_argument("--teacher_backbone_type", type = str, 
                       help = "Mobilefacenets, Resnet.")
-    conf.add_argument("--backbone_conf_file", type = str, 
+    conf.add_argument("--teacher_backbone_conf_file", type = str, 
+                      help = "the path of backbone_conf.yaml.")
+    conf.add_argument("--student_backbone_type", type = str, 
+                      help = "Mobilefacenets, Resnet.")
+    conf.add_argument("--student_backbone_conf_file", type = str, 
                       help = "the path of backbone_conf.yaml.")
     conf.add_argument("--head_type", type = str, 
                       help = "mv-softmax, arcface, npc-face.")
