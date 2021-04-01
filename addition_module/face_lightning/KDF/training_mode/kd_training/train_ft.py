@@ -16,6 +16,7 @@ from tensorboardX import SummaryWriter
 
 from backbone.backbone_def import BackboneFactory
 from loss.loss_def import KDLossFactory
+from utils.net_util import define_paraphraser, define_translator
 
 sys.path.append('../../../')
 from utils.AverageMeter import AverageMeter
@@ -54,6 +55,40 @@ def get_lr(optimizer):
     """
     for param_group in optimizer.param_groups:
         return param_group['lr']
+
+def train_para(train_loader, nets, optimizer_para, criterionPara, total_epoch):
+	tnet        = nets['tnet']
+	paraphraser = nets['paraphraser']
+	paraphraser.train()
+	for epoch in range(1, total_epoch+1):
+		batch_time  = AverageMeter()
+		data_time   = AverageMeter()
+		para_losses = AverageMeter()
+		epoch_start_time = time.time()
+		end = time.time()
+		for i, (img, _) in enumerate(train_loader, start=1):
+			data_time.update(time.time() - end)
+			if args.cuda:
+				img = img.cuda()
+			_, _, _, rb3_t, _, _ = tnet(img)
+			_, rb3_t_rec = paraphraser(rb3_t[1].detach())
+			para_loss = criterionPara(rb3_t_rec, rb3_t[1].detach())
+			para_losses.update(para_loss.item(), img.size(0))
+			optimizer_para.zero_grad()
+			para_loss.backward()
+			optimizer_para.step()
+			batch_time.update(time.time() - end)
+			end = time.time()
+			if i % args.print_freq == 0:
+				log_str = ('Epoch[{0}]:[{1:03}/{2:03}] '
+						   'Time:{batch_time.val:.4f} '
+						   'Data:{data_time.val:.4f}  '
+						   'Para:{para_losses.val:.4f}({para_losses.avg:.4f})'.format(
+						   epoch, i, len(train_loader), batch_time=batch_time, data_time=data_time,
+						   para_losses=para_losses))
+				logging.info(log_str)
+		epoch_duration = time.time() - epoch_start_time
+		logging.info('Epoch time: {}s'.format(int(epoch_duration)))
 
 def train_one_epoch(data_loader, teacher_model, student_model, optimizer, 
                         criterion, criterion_kd, cur_epoch, loss_cls_meter, loss_kd_meter, conf):
@@ -109,6 +144,30 @@ def train(conf):
     """
     data_loader = DataLoader(ImageDataset(conf.data_root, conf.train_file), 
                              conf.batch_size, True, num_workers = 4)
+
+    paraphraser = define_paraphraser(in_channels_t, args.k, use_bn, args.cuda)
+    translator = define_translator(in_channels_s, in_channels_t, args.k, use_bn, args.cuda)
+    optimizer_para = torch.optim.SGD(paraphraser.parameters(),
+         lr = args.lr * 0.1, 
+         momentum = args.momentum, 
+         weight_decay = args.weight_decay)
+    criterionPara = torch.nn.MSELoss().cuda()
+    logging.info('The first stage, training the paraphraser......')
+    train_para(data_loader, nets, optimizer_para, criterionPara, 30)
+    paraphraser.eval()
+    for param in paraphraser.parameters():
+        param.requires_grad = False
+    logging.info('The second stage, training the student network......')
+
+
+
+
+
+
+
+
+
+
     conf.device = torch.device('cuda:0')
     criterion = torch.nn.CrossEntropyLoss().cuda(conf.device)
     backbone_factory = BackboneFactory(conf.backbone_conf_file)    

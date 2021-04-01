@@ -107,7 +107,6 @@ def get_blocks(num_layers):
         ]
     return blocks
 
-#class Backbone(Module):
 class Resnet(Module):
     def __init__(self, num_layers, drop_ratio, mode='ir', feat_dim=512, out_h=7, out_w=7):
         super(Resnet, self).__init__()
@@ -121,22 +120,50 @@ class Resnet(Module):
         self.input_layer = Sequential(Conv2d(3, 64, (3, 3), 1, 1 ,bias=False), 
                                       BatchNorm2d(64), 
                                       PReLU(64))
+
+        stage1 = []
+        for bottleneck in blocks[0]:
+            stage1.append(
+                unit_module(bottleneck.in_channel,
+                            bottleneck.depth,
+                            bottleneck.stride))
+        self.stage1 = Sequential(*stage1)
+
+        stage2 = []
+        for bottleneck in blocks[1]:
+            stage2.append(
+                unit_module(bottleneck.in_channel,
+                            bottleneck.depth,
+                            bottleneck.stride))
+        self.stage2 = Sequential(*stage2)
+
+        stage3 = []
+        for bottleneck in blocks[2]:
+            stage3.append(
+                unit_module(bottleneck.in_channel,
+                            bottleneck.depth,
+                            bottleneck.stride))
+        self.stage3 = Sequential(*stage3)
+
+        stage4 = []
+        for bottleneck in blocks[3]:
+            stage4.append(
+                unit_module(bottleneck.in_channel,
+                            bottleneck.depth,
+                            bottleneck.stride))
+        self.stage4 = Sequential(*stage4)
+
         self.output_layer = Sequential(BatchNorm2d(512), 
                                        Dropout(drop_ratio),
                                        Flatten(),
                                        Linear(512 * out_h * out_w, feat_dim), # for eye
                                        BatchNorm1d(feat_dim))
-        modules = []
-        for block in blocks:
-            for bottleneck in block:
-                modules.append(
-                    unit_module(bottleneck.in_channel,
-                                bottleneck.depth,
-                                bottleneck.stride))
-        self.body = Sequential(*modules)
     
     def forward(self,x):
-        x = self.input_layer(x)
-        x = self.body(x)
-        x = self.output_layer(x)
-        return x
+        out_inp = self.input_layer(x) # 112 * 112
+        out_stage1 = self.stage1(out_inp) # 56 * 56
+        out_stage2 = self.stage2(out_stage1) # 28 * 28
+        out_stage3 = self.stage3(out_stage2) # 14 * 14
+        out_stage4 = self.stage4(out_stage3) # 7 * 7
+        feat = self.output_layer(out_stage4) # 512
+        return out_stage1, out_stage2, out_stage3, out_stage4, feat

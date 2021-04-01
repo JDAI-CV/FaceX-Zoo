@@ -1,0 +1,57 @@
+LFW:
+    pairs_file_path: /export2/wangjun492/face_database/facex-zoo/private_file/test_data/lfw/pairs.txt
+    cropped_face_folder: /export2/wangjun492/face_database/facex-zoo/private_file/test_data/lfw/lfw_crop
+    image_list_file_path: /export2/wangjun492/face_database/facex-zoo/private_file/test_data/lfw/img_list.txt
+
+CPLFW:
+    pairs_file_path: /export2/wangjun492/face_database/facex-zoo/private_file/test_data/cplfw/ori_data/pairs_CPLFW.txt
+    cropped_face_folder: /export2/wangjun492/face_database/facex-zoo/private_file/test_data/cplfw/cplfw_crop
+    image_list_file_path: /export2/wangjun492/face_database/facex-zoo/private_file/test_data/cplfw/img_list.txt
+
+CALFW:
+    pairs_file_path: /export2/wangjun492/face_database/facex-zoo/private_file/test_data/calfw/ori_data/pairs_CALFW.txt
+    cropped_face_folder: /export2/wangjun492/face_database/facex-zoo/private_file/test_data/calfw/calfw_crop
+    image_list_file_path: /export2/wangjun492/face_database/facex-zoo/private_file/test_data/calfw/img_list.txt
+
+AgeDB30:
+    pairs_file_path: /export2/wangjun492/face_database/facex-zoo/private_file/test_data/agedb/AgeDB_FINAL_protocol/04_FINAL_protocol_30_years.mat
+    cropped_face_folder: /export2/wangjun492/face_database/facex-zoo/private_file/test_data/agedb/03_Protocol_Images_crop
+    image_list_file_path: /export2/wangjun492/face_database/facex-zoo/private_file/test_data/agedb/img_list.txt
+
+RFW_African:
+    pairs_file_path: /export2/wangjun492/face_database/facex-zoo/private_file/test_data/rfw/RFW/images/test/txts/African/African_pairs.txt
+    cropped_face_folder: /export2/wangjun492/face_database/facex-zoo/private_file/test_data/rfw/RFW_crop/African
+    image_list_file_path: /export2/wangjun492/face_database/facex-zoo/private_file/test_data/rfw/RFW_crop/African_img_list.txt
+
+RFW_Asian:
+    pairs_file_path: /export2/wangjun492/face_database/facex-zoo/private_file/test_data/rfw/RFW/images/test/txts/Asian/Asian_pairs.txt
+    cropped_face_folder: /export2/wangjun492/face_database/facex-zoo/private_file/test_data/rfw/RFW_crop/Asian
+    image_list_file_path: /export2/wangjun492/face_database/facex-zoo/private_file/test_data/rfw/RFW_crop/Asian_img_list.txt
+
+RFW_Caucasian:
+    pairs_file_path: /export2/wangjun492/face_database/facex-zoo/private_file/test_data/rfw/RFW/images/test/txts/Caucasian/Caucasian_pairs.txt
+    cropped_face_folder: /export2/wangjun492/face_database/facex-zoo/private_file/test_data/rfw/RFW_crop/Caucasian
+    image_list_file_path: /export2/wangjun492/face_database/facex-zoo/private_file/test_data/rfw/RFW_crop/Caucasian_img_list.txt
+
+RFW_Indian:
+    pairs_file_path: /export2/wangjun492/face_database/facex-zoo/private_file/test_data/rfw/RFW/images/test/txts/Indian/Indian_pairs.txt
+    cropped_face_folder: /export2/wangjun492/face_database/facex-zoo/private_file/test_data/rfw/RFW_crop/Indian
+    image_list_file_path: /export2/wangjun492/face_database/facex-zoo/private_file/test_data/rfw/RFW_crop/Indian_img_list.txt
+
+MegaFace:
+    facescrub_list: /export/home/wangjun492/wj_armory/face_rec/face_recognition_pytorch/test_protocal/megaface/megaface_test_kit/devkit/templatelists/facescrub_features_list.json
+    megaceface_list: /export/home/wangjun492/wj_armory/face_rec/face_recognition_pytorch/test_protocal/megaface/megaface_test_kit/devkit/templatelists/megaface_features_list.json_1000000_1
+    facescrub_noises_file: /export/home/wangjun492/wj_armory/face_rec/face_recognition_pytorch/test_protocal/megaface/megaface_test_kit/devkit/scripts/facescrub_noises.txt
+    megaface_noises_file: /export/home/wangjun492/wj_armory/face_rec/face_recognition_pytorch/test_protocal/megaface/megaface_test_kit/devkit/scripts/megaface_noises.txt
+    cropped_face_folder: /export2/wangjun492/face_database/facex-zoo/private_file/test_data/megaface/face_crop_arcface
+    image_list_file: /export2/wangjun492/face_database/facex-zoo/private_file/test_data/megaface/face_crop_arcface/img_list.txt
+    megaface-mask: 1
+    masked_cropped_face_folder: /export2/wangjun492/face_database/facex-zoo/private_file/test_data/megaface/face_crop_arcface
+    masked_image_list_file: /export2/wangjun492/face_database/facex-zoo/private_file/test_data/megaface/face_crop_arcface/masked_facescrub_crop/img_list.txt
+    
+IJBC:
+    cropped_face_folder: /export2/wangjun492/face_database/facex-zoo/private_file/test_data/ijbc/arcface_crop
+    image_list_file_path: /export2/wangjun492/face_database/facex-zoo/private_file/test_data/ijbc/img_list.txt
+    template_media_list_path: /export2/wangjun492/face_database/facex-zoo/private_file/test_data/ijbc/ijbc_face_tid_mid.txt
+    template_pair_list_path: /export2/wangjun492/face_database/facex-zoo/private_file/test_data/ijbc/ijbc_template_pair_label.txt
+    image_score_list_path: /export2/wangjun492/face_database/facex-zoo/private_file/test_data/ijbc/ijbc_name_5pts_score.txt

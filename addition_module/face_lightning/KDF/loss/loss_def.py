@@ -10,6 +10,7 @@ sys.path.append('../../')
 from loss.logits import Logits
 from loss.st import SoftTarget
 from loss.pkt import PKTCosSim
+from loss.ft import FT
 
 class KDLossFactory:
     """Factory to produce head according to the head_conf.yaml
@@ -33,6 +34,8 @@ class KDLossFactory:
             loss = SoftTarget(T)
         elif self.loss_type == 'PKT':
             loss = PKTCosSim()
+        elif self.loss_type == 'FT':
+            loss = FT()
         else:
             pass
         return loss

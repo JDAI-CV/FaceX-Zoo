@@ -1,0 +1,7 @@
+ResNet:
+    depth: 152
+    drop_ratio: 0.4
+    net_mode: ir_se
+    feat_dim: 512
+    out_h: 7
+    out_w: 7

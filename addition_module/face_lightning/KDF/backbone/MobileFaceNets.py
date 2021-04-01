@@ -85,17 +85,21 @@ class MobileFaceNet(Module):
         self.bn = BatchNorm1d(embedding_size)
     
     def forward(self, x):
-        out = self.conv1(x)
-        out = self.conv2_dw(out)
-        out = self.conv_23(out)
-        out = self.conv_3(out)
-        out = self.conv_34(out)
-        out = self.conv_4(out)
-        out = self.conv_45(out)
-        out = self.conv_5(out)
-        out = self.conv_6_sep(out)
-        out = self.conv_6_dw(out)
-        out = self.conv_6_flatten(out)
-        out = self.linear(out)
-        out = self.bn(out)
-        return out
+        out = self.conv1(x) # 56 * 56
+        out_stage1 = self.conv2_dw(out) # 56*56
+
+        out = self.conv_23(out_stage1) # 28*28
+        out_stage2 = self.conv_3(out) # 28*28
+
+        out = self.conv_34(out_stage2) # 14*14
+        out_stage3 = self.conv_4(out) # 14*14
+ 
+        out = self.conv_45(out_stage3) # 7*7
+        out = self.conv_5(out) # 7*7
+        out_stage4 = self.conv_6_sep(out) # 7*7
+
+        out = self.conv_6_dw(out_stage4) # 512*1*1
+        out = self.conv_6_flatten(out) # 512
+        out = self.linear(out) # 512
+        feat = self.bn(out) # 512
+        return out_stage1, out_stage2, out_stage3, out_stage4, feat
