@@ -45,7 +45,7 @@ MegaFace:
     megaface_noises_file: /export/home/wangjun492/wj_armory/face_rec/face_recognition_pytorch/test_protocal/megaface/megaface_test_kit/devkit/scripts/megaface_noises.txt
     cropped_face_folder: /export2/wangjun492/face_database/facex-zoo/private_file/test_data/megaface/face_crop_arcface
     image_list_file: /export2/wangjun492/face_database/facex-zoo/private_file/test_data/megaface/face_crop_arcface/img_list.txt
-    megaface-mask: 1
+    megaface-mask: 0
     masked_cropped_face_folder: /export2/wangjun492/face_database/facex-zoo/private_file/test_data/megaface/face_crop_arcface
     masked_image_list_file: /export2/wangjun492/face_database/facex-zoo/private_file/test_data/megaface/face_crop_arcface/masked_facescrub_crop/img_list.txt
     
