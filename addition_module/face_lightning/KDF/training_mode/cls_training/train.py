@@ -16,11 +16,11 @@ from tensorboardX import SummaryWriter
 
 sys.path.append('../../')
 from backbone.backbone_def import BackboneFactory
-from head.head_def import HeadFactory
 
 sys.path.append('../../../../../')
 from utils.AverageMeter import AverageMeter
 from data_processor.train_dataset import ImageDataset
+from head.head_def import HeadFactory
 
 logger.basicConfig(level=logger.INFO, 
                    format='%(levelname)s %(asctime)s %(filename)s: %(lineno)d] %(message)s',
