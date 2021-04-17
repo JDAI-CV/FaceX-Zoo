@@ -15,7 +15,7 @@ from skimage.io import imread, imsave
 from skimage.transform import estimate_transform, warp
 from utils import read_info
 from model.prnet import PRNet
-from utils.render import render_texture
+from utils.cython.render import render_cy
 
 class PRN:
     """Process of PRNet.
@@ -57,7 +57,8 @@ class PRN:
         cropped_image = torch.from_numpy(cropped_image)
         if torch.cuda.is_available:
             cropped_image = cropped_image.cuda()
-        cropped_pos = self.net(cropped_image)
+        with torch.no_grad():
+            cropped_pos = self.net(cropped_image)
         cropped_pos = cropped_pos.cpu().detach().numpy()
         cropped_pos = np.transpose(cropped_pos, (0, 2, 3, 1)).squeeze() * self.MaxPos
         # restore 
@@ -128,8 +129,8 @@ class FaceMasker:
     # you can speed it up by a c++ version.
     def render(self, vertices, new_colors, h, w):
         vis_colors = np.ones((vertices.shape[0], 1))
-        face_mask = render_texture(vertices.T, vis_colors.T, self.prn.triangles.T, h, w, c=1)
-        face_mask = np.squeeze(face_mask > 0).astype(np.float32)
+        face_mask = render_texture(vertices.T, vis_colors.T, self.prn.triangles.T, h, w, c=1).astype(np.uint8)
+        face_mask = np.squeeze(face_mask > 0)
         new_image = render_texture(vertices.T, new_colors.T, self.prn.triangles.T, h, w, c=3)
         return face_mask, new_image
         
@@ -160,7 +161,9 @@ class FaceMasker:
         new_colors = self.prn.get_colors_from_texture(new_texture)
         
         # render
-        face_mask, new_image = self.render(vertices, new_colors, h, w)
+        face_mask, new_image = render_cy(np.ascontiguousarray(vertices.T), np.ascontiguousarray(new_colors.T), np.ascontiguousarray(self.prn.triangles.T.astype(np.int64)), h, w)
+        face_mask = np.squeeze(np.floor(face_mask) > 0)
+        tmp = new_image * face_mask[:, :, np.newaxis]
         new_image = image * (1 - face_mask[:, :, np.newaxis]) + new_image * face_mask[:, :, np.newaxis]
         new_image = np.clip(new_image, -1, 1) #must clip to (-1, 1)!
 
