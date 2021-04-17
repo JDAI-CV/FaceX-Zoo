@@ -68,7 +68,7 @@ cdef numpy.ndarray[double, ndim=3, mode='c'] render_texture(numpy.ndarray[double
         for colors_size_ptr in range(colors_size):
             tri_tex[colors_size_ptr, triangles_size_1_ptr] = (colors[colors_size_ptr, triangles[0, triangles_size_1_ptr]] + colors[colors_size_ptr, triangles[1, triangles_size_1_ptr]] + colors[colors_size_ptr, triangles[2, triangles_size_1_ptr]]) / 3.
 
-    cdef int umin 
+    cdef int umin
     cdef int vmin
     cdef int umax
     cdef int vmax
@@ -102,7 +102,7 @@ cdef numpy.ndarray[double, ndim=3, mode='c'] render_texture(numpy.ndarray[double
             for v in range(vmin, vmax+1):
                 if tri_depth[triangles_size_1_ptr] > depth_buffer[v, u]:
                     ifisPointInTri = isPointInTri(<double>u, <double>v, vertices_idx_by_tri)
-                    if ifisPointInTri: 
+                    if ifisPointInTri:
                         depth_buffer[v, u] = tri_depth[triangles_size_1_ptr]
                         for c_channel_ptr in range(c):
                             image[v, u, c_channel_ptr] = tri_tex[c_channel_ptr, triangles_size_1_ptr]
@@ -141,4 +141,3 @@ cdef bint isPointInTri(double point0, double point1, numpy.ndarray[double, ndim=
     cdef double v = (dot00*dot12 - dot01*dot02)*inverDeno
 
     return (u >= 0) & (v >= 0) & (u + v < 1)
-
