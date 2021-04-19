@@ -1,3 +1,8 @@
+'''
+@author: cbwces
+@date: 20210419
+@contact: sknyqbcbw@gmail.com
+'''
 from setuptools import setup, Extension
 from Cython.Build import cythonize
 import numpy

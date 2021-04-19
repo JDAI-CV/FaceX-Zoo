@@ -1,3 +1,8 @@
+'''
+@author: cbwces
+@date: 20210419
+@contact: sknyqbcbw@gmail.com
+'''
 cimport cython
 from cython.parallel import prange
 import numpy
