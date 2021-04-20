@@ -46,9 +46,9 @@ class FaceModel(torch.nn.Module):
         self.head = head_factory.get_head()
 
     def forward(self, data, label):
-        _, _, _, _, feat = self.backbone.forward(data)
+        out_stage1, out_stage2, out_stage3, out_stage4, feat = self.backbone.forward(data)
         pred = self.head.forward(feat, label)
-        return feat, pred
+        return out_stage1, out_stage2, out_stage3, out_stage4, feat, pred
 
 def get_lr(optimizer):
     """Get the current learning rate from optimizer. 
@@ -64,14 +64,22 @@ def train_one_epoch(data_loader, teacher_model, student_model, optimizer,
         images = images.to(conf.device)
         labels = labels.to(conf.device)
         labels = labels.squeeze()
-        feats_s, preds_s = student_model.forward(images, labels)
+        out1_s, out2_s, out3_s, out4_s, feats_s, preds_s = student_model.forward(images, labels)
         loss_cls = criterion(preds_s, labels)
         with torch.no_grad():
-            feats_t, preds_t = teacher_model.forward(images, labels)
-        if conf.loss_type == 'PKT':
-            loss_kd = criterion_kd(feats_s, feats_t.detach()) * args.lambda_kd
-        else:
+            out1_t, out2_t, out3_t, out4_t, feats_t, preds_t = teacher_model.forward(images, labels)
+        if conf.loss_type in ['SNN-MIMIC', 'SoftTarget']:
             loss_kd = criterion_kd(preds_s, preds_t.detach()) * args.lambda_kd
+        elif conf.loss_type in ['PKT', 'RKD']:
+            loss_kd = criterion_kd(feats_s, feats_t.detach()) * args.lambda_kd            
+        elif conf.loss_type in ['FitNet', 'NST']:
+            loss_kd = criterion_kd(out4_s, out4_t.detach()) * args.lambda_kd
+        elif conf.loss_type=='FSP':
+            loss_kd= args.lambda_kd * (criterion_kd(out1_s, out2_s, out1_t.detach(), out2_t.detach())
+                                       + criterion_kd(out2_s, out3_s, out2_t.detach(), out3_t.detach())
+                                       + criterion_kd(out3_s, out4_s, out3_t.detach(), out4_t.detach()))/3.0
+        else:
+            pass
         loss = loss_cls + loss_kd        
         optimizer.zero_grad()
         loss.backward()

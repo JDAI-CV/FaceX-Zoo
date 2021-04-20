@@ -1,9 +1,9 @@
 mkdir 'log'
 python train.py \
-    --data_root '/export2/wangjun492/face_database/facex-zoo/private_file/train_data/deepglint/msra_crop' \
-    --train_file '/export2/wangjun492/face_database/facex-zoo/private_file/train_data/deepglint/msceleb_deepglint_train_file.txt' \
+    --data_root '/home/wangjun492/wj_data/face_database/facex-zoo/msra_crop' \
+    --train_file '/home/wangjun492/wj_data/face_database/facex-zoo/msceleb_deepglint_train_file.txt' \
     --backbone_type 'ResNet' \
-    --backbone_conf_file '../teacher_backbone_conf.yaml' \
+    --backbone_conf_file '../student_backbone_conf.yaml' \
     --head_type 'MV-Softmax' \
     --head_conf_file '../head_conf.yaml' \
     --lr 0.1 \

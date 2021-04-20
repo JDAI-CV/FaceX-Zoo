@@ -2,7 +2,6 @@ import torch
 import torch.nn as nn
 import torch.nn.functional as F
 
-
 '''
 Adopted from https://github.com/passalis/probabilistic_kt/blob/master/nn/pkt.py
 '''

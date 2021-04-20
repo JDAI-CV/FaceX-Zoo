@@ -2,3 +2,11 @@ MobileFaceNet:
     feat_dim: 512
     out_h: 7
     out_w: 7
+
+ResNet:
+    depth: 18
+    drop_ratio: 0.4
+    net_mode: ir
+    feat_dim: 512
+    out_h: 7
+    out_w: 7

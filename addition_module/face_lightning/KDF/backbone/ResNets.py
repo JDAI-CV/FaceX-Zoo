@@ -117,7 +117,6 @@ def get_blocks(num_layers):
 class Resnet(Module):
     def __init__(self, num_layers, drop_ratio, mode='ir', feat_dim=512, out_h=7, out_w=7):
         super(Resnet, self).__init__()
-        assert num_layers in [50, 100, 152], 'num_layers should be 50,100, or 152'
         assert mode in ['ir', 'ir_se'], 'mode should be ir or ir_se'
         blocks = get_blocks(num_layers)
         if mode == 'ir':
