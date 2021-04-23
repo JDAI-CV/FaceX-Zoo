@@ -15,6 +15,7 @@ from loss.fsp import FSP
 from loss.pkt import PKTCosSim
 from loss.ft import FT
 from loss.rkd import RKD
+from loss.cc import CC
 
 class KDLossFactory:
     """Factory to produce head according to the head_conf.yaml
@@ -50,6 +51,10 @@ class KDLossFactory:
             w_dist = self.loss_param['w_dist']
             w_angle = self.loss_param['w_angle']
             loss = RKD(w_dist, w_angle)
+        elif self.loss_type == 'CC':
+            gamma = self.loss_param['gamma']
+            P_order = self.loss_param['P_order']
+            loss = CC(gamma, P_order)
         else:
             pass
         return loss
