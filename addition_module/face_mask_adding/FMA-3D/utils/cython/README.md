@@ -4,7 +4,7 @@ this is a Cython implementation to speed up adding mask rendering process
 
 ## Usage
 
-just run `python setup.py` to generate a share file
+just run `python setup.py build_ext -i` to generate a share file
 
 ## Compare
 
