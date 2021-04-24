@@ -31,7 +31,7 @@ class Adam_Softmax(Module):
         cos_theta_m = cos_theta - margin
         index = torch.zeros_like(cos_theta)
         index.scatter_(1,labels.data.view(-1,1),1)
-        index = index.byte()
+        index = index.byte().bool()
         output = cos_theta * 1.0
         output[index] = cos_theta_m[index]
         output *= self.scale
