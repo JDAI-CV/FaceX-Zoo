@@ -31,10 +31,10 @@ class CircleLoss(Module):
         cos_theta = cos_theta.clamp(-1, 1)
         index_pos = torch.zeros_like(cos_theta)        
         index_pos.scatter_(1, labels.data.view(-1, 1), 1)
-        index_pos = index_pos.byte()
+        index_pos = index_pos.byte().bool()
         index_neg = torch.ones_like(cos_theta)        
         index_neg.scatter_(1, labels.data.view(-1, 1), 0)
-        index_neg = index_neg.byte()
+        index_neg = index_neg.byte().bool()
 
         alpha_p = torch.clamp_min(self.O_p - cos_theta.detach(), min=0.)
         alpha_n = torch.clamp_min(cos_theta.detach() - self.O_n, min=0.)
