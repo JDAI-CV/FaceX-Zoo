@@ -1,54 +1,13 @@
-#References
-[1]. https://github.com/davidsandberg/
-facenet.
-[2]. https://github.com/deepinsight/
-insightface.
-[3] https://github.com/ZhaoJ9014/face.
-evoLVe.PyTorch.
-[4] http://trillionpairs.deepglint.com/
-overview.
-[5] Martı́n Abadi, Ashish Agarwal, Paul Barham, Eugene
-Brevdo, Zhifeng Chen, Craig Citro, Greg S. Corrado, Andy
-Davis, Jeffrey Dean, Matthieu Devin, Sanjay Ghemawat,
-Ian Goodfellow, Andrew Harp, Geoffrey Irving, Michael Is-
-ard, Yangqing Jia, Rafal Jozefowicz, Lukasz Kaiser, Man-
-junath Kudlur, Josh Levenberg, Dan Mané, Rajat Monga,
-Sherry Moore, Derek Murray, Chris Olah, Mike Schuster,
-Jonathon Shlens, Benoit Steiner, Ilya Sutskever, Kunal Tal-
-war, Paul Tucker, Vincent Vanhoucke, Vijay Vasudevan, Fer-
-nanda Viégas, Oriol Vinyals, Pete Warden, Martin Watten-
-berg, Martin Wicke, Yuan Yu, and Xiaoqiang Zheng. Tensor-
-Flow: Large-scale machine learning on heterogeneous sys-
-tems, 2015. Software available from tensorflow.org.
-[6] Brandon Amos, Bartosz Ludwiczuk, and Mahadev Satya-
-narayanan. Openface: A general-purpose face recognition
-library with mobile applications. Technical report, 2016.
-[7] Sheng Chen, Yang Liu, Xiang Gao, and Zhen Han. Mobile-
-facenets: Efficient cnns for accurate real-time face verifica-
-tion on mobile devices. In CCBR, 2018.
-[8] Tianqi Chen, Mu Li, Yutian Li, Min Lin, Naiyan Wang,
-Minjie Wang, Tianjun Xiao, Bing Xu, Chiyuan Zhang,
-[9]
-[10]
-[11]
-[12]
-[13]
-[14]
-[15]
-[16]
-[17]
-[18]
-[19]
-[20]
-[21]
-[22]
-[23]
-[24]
-[25]
-and Zheng Zhang. Mxnet: A flexible and efficient ma-
-chine learning library for heterogeneous distributed systems.
-arXiv:1512.01274, 2015.
-Jiankang Deng, Jia Guo, Niannan Xue, and Stefanos
+# References
+[1] https://github.com/davidsandberg/facenet. 
+[2] https://github.com/deepinsight/insightface. 
+[3] https://github.com/ZhaoJ9014/face.evoLVe.PyTorch. 
+[4] http://trillionpairs.deepglint.com/overview. 
+[5] Martı́n Abadi, Ashish Agarwal, Paul Barham, Eugene Brevdo, Zhifeng Chen, Craig Citro, Greg S. Corrado, Andy Davis, Jeffrey Dean, Matthieu Devin, Sanjay Ghemawat, Ian Goodfellow, Andrew Harp, Geoffrey Irving, Michael Is-ard, Yangqing Jia, Rafal Jozefowicz, Lukasz Kaiser, Man-junath Kudlur, Josh Levenberg, Dan Mané, Rajat Monga,Sherry Moore, Derek Murray, Chris Olah, Mike Schuster, Jonathon Shlens, Benoit Steiner, Ilya Sutskever, Kunal Tal-war, Paul Tucker, Vincent Vanhoucke, Vijay Vasudevan, Fer-nanda Viégas, Oriol Vinyals, Pete Warden, Martin Watten-berg, Martin Wicke, Yuan Yu, and Xiaoqiang Zheng. Tensor-Flow: Large-scale machine learning on heterogeneous sys-tems, 2015. Software available from tensorflow.org. 
+[6] Brandon Amos, Bartosz Ludwiczuk, and Mahadev Satya-narayanan. Openface: A general-purpose face recognition library with mobile applications. Technical report, 2016.
+[7] Sheng Chen, Yang Liu, Xiang Gao, and Zhen Han. Mobile-facenets: Efficient cnns for accurate real-time face verifica-tion on mobile devices. In CCBR, 2018.
+[8] Tianqi Chen, Mu Li, Yutian Li, Min Lin, Naiyan Wang, Minjie Wang, Tianjun Xiao, Bing Xu, Chiyuan Zhang, and Zheng Zhang. Mxnet: A flexible and efficient ma-chine learning library for heterogeneous distributed systems. arXiv:1512.01274, 2015.
+[9] Jiankang Deng, Jia Guo, Niannan Xue, and Stefanos
 Zafeiriou. Arcface: Additive angular margin loss for deep
 face recognition. In CVPR, 2019.
 Jiankang Deng, Jia Guo, Yuxiang Zhou, Jinke Yu, Irene Kot-
