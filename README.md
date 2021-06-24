@@ -8,8 +8,11 @@ About the name:
 ![image](data/images/arch.jpg)
 
 # What's New
+- [Jun. 2021] We evaluate some knowledge distillation methods on face recognition task, results and codes can be find in [face_lightning](addition_module/face_lightning/KDF) module.
+- [May. 2021] Tools to convert a trained model to onnx format and the provided sdk format can be find in [model_convertor](addition_module/model_convertor).
+- [Apr. 2021] IJBC 1:1 protocol has been added to the [evaluation module](test_protocol/test_ijbc.sh).
 - [Mar. 2021] [ResNeSt](https://hangzhang.org/files/resnest.pdf) and [ReXNet](https://arxiv.org/pdf/2007.00992.pdf) have been added to the backbones, [MagFace](https://arxiv.org/pdf/2103.06627.pdf) has been added to the heads. 
-- [Feb. 2021] Mixed precision training by [apex](https://github.com/NVIDIA/apex) is supported. Please check [train_amp.py](training_mode/conventional_training/train_amp.py)
+- [Feb. 2021] Distributed training and mixed precision training by [apex](https://github.com/NVIDIA/apex) is supported. Please check [distributed_training](training_mode/distributed_training) and [train_amp.py](training_mode/conventional_training/train_amp.py)
 - [Jan. 2021] We commit the initial version of FaceX-Zoo.
 
 # Requirements

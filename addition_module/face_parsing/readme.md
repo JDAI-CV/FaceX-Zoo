@@ -1,1 +1,0 @@
-# Some methods for face parsing.
