@@ -1,7 +1,7 @@
-@References
-[1] https://github.com/davidsandberg/
+#References
+[1]. https://github.com/davidsandberg/
 facenet.
-[2] https://github.com/deepinsight/
+[2]. https://github.com/deepinsight/
 insightface.
 [3] https://github.com/ZhaoJ9014/face.
 evoLVe.PyTorch.
