@@ -13,5 +13,4 @@ class FitNet(nn.Module):
 
 	def forward(self, fm_s, fm_t):
 		loss = F.mse_loss(fm_s, fm_t)
-
 		return loss

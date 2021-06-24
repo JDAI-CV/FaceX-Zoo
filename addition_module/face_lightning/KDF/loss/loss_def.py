@@ -10,12 +10,9 @@ sys.path.append('../../')
 from loss.snn_mimic import SNN_MIMIC
 from loss.soft_target import SoftTarget
 from loss.fitnet import FitNet
-from loss.nst import NST
 from loss.fsp import FSP
 from loss.pkt import PKTCosSim
 from loss.ft import FT
-from loss.rkd import RKD
-from loss.cc import CC
 
 class KDLossFactory:
     """Factory to produce head according to the head_conf.yaml
@@ -39,22 +36,12 @@ class KDLossFactory:
             loss = SoftTarget(T)
         elif self.loss_type == 'FitNet':
             loss = FitNet()
-        elif self.loss_type == 'NST':
-            loss = NST()
         elif self.loss_type == 'FSP':
             loss = FSP()
         elif self.loss_type == 'PKT':
             loss = PKTCosSim()
         elif self.loss_type == 'FT':
             loss = FT()
-        elif self.loss_type == 'RKD':
-            w_dist = self.loss_param['w_dist']
-            w_angle = self.loss_param['w_angle']
-            loss = RKD(w_dist, w_angle)
-        elif self.loss_type == 'CC':
-            gamma = self.loss_param['gamma']
-            P_order = self.loss_param['P_order']
-            loss = CC(gamma, P_order)
         else:
             pass
         return loss
