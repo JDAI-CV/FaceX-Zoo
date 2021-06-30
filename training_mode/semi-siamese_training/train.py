@@ -124,7 +124,8 @@ def train(conf):
         exclude_id_set = train_one_epoch(data_loader, probe_net, gallery_net, 
             prototype, optimizer, criterion, epoch, conf, loss_meter)
         lr_schedule.step()
-        conf.evaluator.evaluate(probe_net)
+        if conf.evaluate:
+            conf.evaluator.evaluate(probe_net)
 
 if __name__ == '__main__':
     conf = argparse.ArgumentParser(description='semi-siamese_training for face recognition.')
@@ -183,7 +184,8 @@ if __name__ == '__main__':
         shutil.rmtree(tensorboardx_logdir)
     writer = SummaryWriter(log_dir=tensorboardx_logdir)
     args.writer = writer
-    args.evaluator = Evaluator(args.test_set, args.test_data_conf_file)
+    if args.evaluate:
+        args.evaluator = Evaluator(args.test_set, args.test_data_conf_file)
     logger.info('Start optimization.')
     logger.info(args)
     train(args)
