@@ -65,3 +65,4 @@ class Evaluator:
         else:
             mean, std = self.lfw_evaluator.test(model)
             logger.info('accuracy on %s, mean: %f, std: %f.' % (self.test_set, mean, std))
+        model.train()
