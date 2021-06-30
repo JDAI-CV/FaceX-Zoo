@@ -17,4 +17,7 @@ python train.py \
     --log_dir 'log' \
     --tensorboardx_logdir 'sst_mobileface' \
     --save_freq 10 \
+    --evaluate \
+    --test_set 'LFW' \
+    --test_data_conf_file '/export/home/wangjun492/wj_armory/FaceX-Zoo/test_protocol/data_conf.yaml' \
     2>&1 | tee log/log.log

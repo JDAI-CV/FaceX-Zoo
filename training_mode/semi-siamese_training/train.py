@@ -19,6 +19,7 @@ from utils.AverageMeter import AverageMeter
 from data_processor.train_dataset import ImageDataset_SST
 from backbone.backbone_def import BackboneFactory
 from head.head_def import HeadFactory
+from test_protocol.utils.online_val import Evaluator
 
 logger.basicConfig(level=logger.INFO, 
                    format='%(levelname)s %(asctime)s %(filename)s: %(lineno)d] %(message)s',
@@ -123,6 +124,7 @@ def train(conf):
         exclude_id_set = train_one_epoch(data_loader, probe_net, gallery_net, 
             prototype, optimizer, criterion, epoch, conf, loss_meter)
         lr_schedule.step()
+        conf.evaluator.evaluate(probe_net)
 
 if __name__ == '__main__':
     conf = argparse.ArgumentParser(description='semi-siamese_training for face recognition.')
@@ -164,6 +166,12 @@ if __name__ == '__main__':
                       help = 'The path of pretrained model')
     conf.add_argument('--resume', '-r', action = 'store_true', default = False, 
                       help = 'Resume from checkpoint or not.')
+    conf.add_argument('--evaluate', '-e', action = 'store_true', default = False, 
+                      help = 'Evaluate the training model.')
+    conf.add_argument('--test_set', type = str, default = 'LFW', 
+                      help = 'Test set to evaluate the model.')  
+    conf.add_argument('--test_data_conf_file', type = str, 
+                      help = 'The path of test data conf file.')    
     args = conf.parse_args()
     args.milestones = [int(num) for num in args.step.split(',')]
     if not os.path.exists(args.out_dir):
@@ -175,6 +183,7 @@ if __name__ == '__main__':
         shutil.rmtree(tensorboardx_logdir)
     writer = SummaryWriter(log_dir=tensorboardx_logdir)
     args.writer = writer
+    args.evaluator = Evaluator(args.test_set, args.test_data_conf_file)
     logger.info('Start optimization.')
     logger.info(args)
     train(args)
