@@ -6,7 +6,7 @@ We use [MS-Celeb-1M-v1c](http://trillionpairs.deepglint.com/data) for convention
 
 ## 2. Train a face recognition model
 ### Step1: Prepare the training data
-Align the face images to 112*112 according to [face_align.py](//github.com/deepinsight/insightface/blob/master/recognition/common/face_align.py).
+Align the face images to 112*112 according to [face_align.py](../face_sdk/api_usage/face_crop.py).
 ### Step2: Configure the backbone  
 Edit the configuration in [backbone_conf.yaml](backbone_conf.yaml). Detailed description about the configuration can be found in [backbone_def.py](../backbone/backbone_def.py).  
 ### Step3: Configure the head  
