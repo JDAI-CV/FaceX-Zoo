@@ -17,7 +17,7 @@ In the following, we take ResNet-18 as the backbone and AffectNet as the benchma
 
 ## Pre-training
 For pre-training on MS-Celeb-1M, please refer to the [pretrain](https://github.com/JDAI-CV/FaceX-Zoo/tree/main/addition_module/DMUE/pretrain) folder.
-- Download MS-Celeb-1M and its five facial landmarks to your path. We provide a counterpart of landmark file at this [link](https://drive.google.com/drive/folders/1FQ_SOQ3zP0LwtX3iF65Wn1aNSiRRcMP9).
+- Download MS-Celeb-1M and its five facial landmarks to your path. We provide a counterpart of landmark file [msra_lmk.txt](https://drive.google.com/drive/folders/1FQ_SOQ3zP0LwtX3iF65Wn1aNSiRRcMP9).
 - Configure the paths in [./preprocess/crop_msra.py](https://github.com/JDAI-CV/FaceX-Zoo/blob/main/addition_module/DMUE/preprocess/crop_msra.py) and run it to crop faces.
 - Configure the `data_root` in [./pretrain/gen_train_file.py](https://github.com/JDAI-CV/FaceX-Zoo/blob/main/addition_module/DMUE/pretrain/gen_train_file.py) and run it to generate training list.
 - Configure the paths in [./pretrain/train_res18.sh](https://github.com/JDAI-CV/FaceX-Zoo/blob/main/addition_module/DMUE/pretrain/train_res18.sh) and run it to pre-train ResNet-18 on MS-Celeb-1M.
@@ -38,7 +38,7 @@ Our method is trained on single GPU. Multi-GPUs with DataParallel may encounter 
 
 ## Testing
 We provide a trained ResNet-18 model on AffectNet, and the following shows how to test it.
-- Download the trained model in this [link](https://drive.google.com/drive/folders/1p_vRIClF5ZXdDVzQC0oYnffspA5TjqnU), and put it to `./checkpoints/AffectNet_res18/snapshots/`.
+- Download the trained model in this [link](https://drive.google.com/drive/folders/1p_vRIClF5ZXdDVzQC0oYnffspA5TjqnU), and put it to `./checkpoints/`.
 - Run [convert_weights.py](https://github.com/JDAI-CV/FaceX-Zoo/blob/main/addition_module/DMUE/convert_weights.py) to convert the multi-branches weights to the target-branch weights.
 - Run [inference.py](https://github.com/JDAI-CV/FaceX-Zoo/blob/main/addition_module/DMUE/inference.py) to test on `./images/test1.jpg`.
 
