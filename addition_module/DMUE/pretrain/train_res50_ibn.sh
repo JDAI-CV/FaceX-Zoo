@@ -1,0 +1,11 @@
+CUDA_VISIBLE_DEVICES=0,1,2,3 python train_mv_softmax.py \
+    --backbone 'resnet50_ibn' \
+    --data_root '/path/to/your/cropped_msra/' \
+    --train_file '/path/to/your/msra_train_file.txt' \
+    --out_dir './checkpoints/out_dir_res50_ibn' \
+    --lr 0.1 \
+    --step '10, 13, 16' \
+    --epochs 18 \
+    --print_freq 200 \
+    --batch_size 256 \
+    --feat_dim 2048
