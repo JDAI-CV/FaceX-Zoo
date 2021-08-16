@@ -33,7 +33,7 @@ Before training on AffectNet, the first step is to detect and align the faces. T
 
 Our method is trained on single GPU. Multi-GPUs with DataParallel may encounter Exceptions, since there are some batch splitting operations in the forward pass. Accordingly, we provide DistributedDataParallel for Multi-GPUs with the help of [apex](https://github.com/NVIDIA/apex.git). Note that accuracy is slightly dropped when using Multi-GPUs.
 - Configure the paths in [config.py](https://github.com/JDAI-CV/FaceX-Zoo/blob/main/addition_module/DMUE/config.py).
-- Run [train.sh](https://github.com/JDAI-CV/FaceX-Zoo/blob/main/addition_module/DMUE/train.sh) for single GPU / Run [train_ddp.sh](https://github.com/JDAI-CV/FaceX-Zoo/blob/main/addition_module/DMUE/train_ddp.py) for Multi-GPUs.
+- Run [train.sh](https://github.com/JDAI-CV/FaceX-Zoo/blob/main/addition_module/DMUE/train.sh) for single GPU / Run [train_ddp.sh](https://github.com/JDAI-CV/FaceX-Zoo/blob/main/addition_module/DMUE/train_ddp.sh) for Multi-GPUs.
 
 
 ## Testing
