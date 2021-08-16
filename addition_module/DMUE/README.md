@@ -52,7 +52,7 @@ Please consider citing our paper in your publications if the project helps your 
 ```
 @inproceedings{She2021DMUE,
   title     =  {Dive into Ambiguity: Latent Distribution Mining and Pairwise Uncertainty 
-  				Estimation for Facial Expression Recognition},
+  	Estimation for Facial Expression Recognition},
   author    =  {Jiahui She, Yibo Hu, Hailin Shi, Jun Wang, Qiu Shen and Tao Mei},
   booktitle =  {CVPR},
   year      =  {2021}
