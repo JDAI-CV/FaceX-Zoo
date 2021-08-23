@@ -10,6 +10,7 @@ About the name:
 ![image](data/images/arch.jpg)
 
 # What's New
+- [Jul. 2021] A method for facial expression recognition named [DMUE](https://openaccess.thecvf.com/content/CVPR2021/papers/She_Dive_Into_Ambiguity_Latent_Distribution_Mining_and_Pairwise_Uncertainty_Estimation_CVPR_2021_paper.pdf) has been accepted by CVPR2021, and all codes have been released [here](addition_module/DMUE).
 - [Jun. 2021] We evaluate some knowledge distillation methods on face recognition task, results and codes can be found in [face_lightning](addition_module/face_lightning/KDF) module.
 - [May. 2021] Tools to convert a trained model to onnx format and the provided sdk format can be found in [model_convertor](addition_module/model_convertor).
 - [Apr. 2021] IJB-C 1:1 protocol has been added to the [evaluation module](test_protocol/test_ijbc.sh).
