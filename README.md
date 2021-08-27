@@ -41,11 +41,11 @@ This repo is mainly inspired by [InsightFace](https://github.com/deepinsight/ins
 # Citation
 Please consider citing our paper in your publications if the project helps your research. BibTeX reference is as follows.
 ```BibTeX
-@article{wang2021facex,
-  title={FaceX-Zoo: A PyTorh Toolbox for Face Recognition},
-  author={Wang, Jun and Liu, Yinglu and Hu, Yibo and Shi, Hailin and Mei, Tao},
-  journal={arXiv preprint arXiv:2101.04407},
-  year={2021}
+@inproceedings{wang2021facex,
+  author = {Jun Wang, Yinglu Liu, Yibo Hu, Hailin Shi and Tao Mei},
+  title = {FaceX-Zoo: A PyTorh Toolbox for Face Recognition},
+  journal = {Proceedings of the 29th ACM international conference on Multimedia},
+  year = {2021}
 }
 ```
 If you have any questions, please contact with Jun Wang (wangjun492@jd.com), Yinglu Liu (liuyinglu1@jd.com), [Yibo Hu](https://aberhu.github.io/) (huyibo6@jd.com) or [Hailin Shi](https://sites.google.com/view/hailin-shi) (shihailin@jd.com).
