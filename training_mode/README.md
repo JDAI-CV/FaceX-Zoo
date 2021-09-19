@@ -36,7 +36,7 @@ The models and training logs mentioned in our technical report are listed as fol
 | [ResNeSt50](https://hangzhang.org/files/resnest.pdf)    | 99.80 | 89.98 | 95.55 | 97.98 | 97.08 | 76.79M | 5.55G | [Google](https://drive.google.com/file/d/1v9waQnoQnniv8GdXHpiEUm148IRbJ9-P/view?usp=sharing),[Baidu]():3ura |
 | [ReXNet_1.0](https://arxiv.org/pdf/2007.00992.pdf)    | 99.65 | 84.68 | 94.58 | 96.70 | 93.17 | 15.20M | 429.64M | [Google](https://drive.google.com/drive/folders/1bybc4psUaGF-4ucXoW3aloLOayCDs25U?usp=sharing),[Baidu]():3ura |
 | [RepVGG_A0](https://arxiv.org/pdf/2101.03697.pdf)    | 99.77 | 85.43 | 94.88 | 96.97 | 94.40 | 39.94M | 1.55G | [Google](),[Baidu](https://pan.baidu.com/s/1uUd6Uv2Jg8VjPtdHN-H-0g):gdsf |
-| [RepVGG_B0](https://arxiv.org/pdf/2101.03697.pdf)    | 99.72 | 86.77 | 95.17 | 97.57 | 95.75 | 46.65MM | 3.44G | [Google](),[Baidu](https://pan.baidu.com/s/1cJ-O67cCTzOSriIOWBnagg):ip68 |
+| [RepVGG_B0](https://arxiv.org/pdf/2101.03697.pdf)    | 99.72 | 86.77 | 95.17 | 97.57 | 95.75 | 46.65M | 3.44G | [Google](),[Baidu](https://pan.baidu.com/s/1cJ-O67cCTzOSriIOWBnagg):ip68 |
 | [RepVGG_B1](https://arxiv.org/pdf/2101.03697.pdf)    | 99.82 | 87.55 | 95.50 | 97.78 | 96.74 | 106.75M | 13.21G | [Google](),[Baidu](https://pan.baidu.com/s/1OOdwPajSGM6Greandy-gow):b60b |
 * MegaFace means MegaFace rank1 accuracy.  
 * Params and Macs are computed by [THOP](https://github.com/Lyken17/pytorch-OpCounter).  
