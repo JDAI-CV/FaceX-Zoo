@@ -17,6 +17,7 @@ from backbone.AttentionNets import ResidualAttentionNet
 from backbone.TF_NAS import TF_NAS_A
 from backbone.resnest.resnest import ResNeSt
 from backbone.ReXNets import ReXNetV1
+from backbone.RepVGG import RepVGG
 
 class BackboneFactory:
     """Factory to produce backbone according the backbone_conf.yaml.
@@ -117,6 +118,17 @@ class BackboneFactory:
             dropout_ratio = self.backbone_param['dropout_ratio']
             backbone = ReXNetV1(input_ch, final_ch, width_mult, depth_mult, use_se, se_ratio,
                                 out_h, out_w, feat_dim, dropout_ratio)
+        elif self.backbone_type == 'RepVGG':
+            block_stage1 = self.backbone_param['block_stage1']
+            block_stage2 = self.backbone_param['block_stage2']
+            block_stage3 = self.backbone_param['block_stage3']
+            block_stage4 = self.backbone_param['block_stage4']
+            width_stage1 = self.backbone_param['width_stage1']
+            width_stage2 = self.backbone_param['width_stage2']
+            width_stage3 = self.backbone_param['width_stage3']
+            width_stage4 = self.backbone_param['width_stage4']
+            backbone = RepVGG(num_blocks=[block_stage1, block_stage2, block_stage3, block_stage4], 
+                              width_multiplier=[width_stage1, width_stage2, width_stage3, width_stage4])
         else:
             pass
         return backbone

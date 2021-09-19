@@ -118,3 +118,15 @@ ReXNet:
     feat_dim: 512
     dropout_ratio: 0.2
 
+RepVGG:
+    block_stage1: 2
+    block_stage2: 4
+    block_stage3: 14 
+    block_stage4: 1
+    width_stage1: 0.75
+    width_stage2: 0.75
+    width_stage3: 0.75
+    width_stage4: 2.5
+    feat_dim: 512
+    out_h: 7
+    out_w: 7
