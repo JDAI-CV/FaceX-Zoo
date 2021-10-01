@@ -1,0 +1,1 @@
+sudo docker build -t facex-zoo:v1 .
