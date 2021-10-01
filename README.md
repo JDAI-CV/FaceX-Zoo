@@ -10,6 +10,7 @@ About the name:
 ![image](data/images/arch.jpg)
 
 # What's New
+- [Sep. 2021] We provide a [Dockfile](docker/Dockerfile) to buid the docker image of this project.
 - [Aug. 2021] [RepVGG](https://arxiv.org/pdf/2101.03697.pdf) has been added to the backbones for face recognition, the performance of RepVGG_A0, B0, B1 can be found in [3.1 Experiments of SOTA backbones](training_mode).
 - [Jul. 2021] A method for facial expression recognition named [DMUE](https://openaccess.thecvf.com/content/CVPR2021/papers/She_Dive_Into_Ambiguity_Latent_Distribution_Mining_and_Pairwise_Uncertainty_Estimation_CVPR_2021_paper.pdf) has been accepted by CVPR2021, and all codes have been released [here](addition_module/DMUE).
 - [Jun. 2021] We evaluate some knowledge distillation methods on face recognition task, results and codes can be found in [face_lightning](addition_module/face_lightning/KDF) module.
