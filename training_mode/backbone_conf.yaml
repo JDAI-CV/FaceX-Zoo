@@ -120,8 +120,20 @@ ReXNet:
 
 LightCNN:
     depth: 29
-    drop_ratio: 0.4
     out_h: 7
     out_w: 7
     feat_dim: 512
     dropout_ratio: 0.2
+
+RepVGG:
+    blocks1: 4
+    blocks2: 6
+    blocks3: 16
+    blocks4: 1
+    width1: 2
+    width2: 2
+    width3: 2
+    width4: 4
+    out_h: 7
+    out_w: 7
+    feat_dim: 512
