@@ -18,6 +18,7 @@ from backbone.TF_NAS import TF_NAS_A
 from backbone.resnest.resnest import ResNeSt
 from backbone.ReXNets import ReXNetV1
 from backbone.LightCNN import LightCNN
+from backbone.RepVGG import RepVGG
 
 class BackboneFactory:
     """Factory to produce backbone according the backbone_conf.yaml.
@@ -125,6 +126,21 @@ class BackboneFactory:
             feat_dim = self.backbone_param['feat_dim']            
             drop_ratio = self.backbone_param['dropout_ratio']
             backbone = LightCNN(depth, drop_ratio, out_h, out_w, feat_dim)
+        elif self.backbone_type == 'RepVGG':
+            blocks1 = self.backbone_param['blocks1']
+            blocks2 = self.backbone_param['blocks2']
+            blocks3 = self.backbone_param['blocks3']
+            blocks4 = self.backbone_param['blocks4']
+            width1 = self.backbone_param['width1']
+            width2 = self.backbone_param['width2']
+            width3 = self.backbone_param['width3']
+            width4 = self.backbone_param['width4']
+            out_h = self.backbone_param['out_h']
+            out_w = self.backbone_param['out_w']
+            feat_dim = self.backbone_param['feat_dim']            
+            backbone = RepVGG([blocks1, blocks2, blocks3, blocks4], 
+                              [width1, width2, width3, width4],
+                              feat_dim, out_h, out_w)
         else:
             pass
         return backbone
