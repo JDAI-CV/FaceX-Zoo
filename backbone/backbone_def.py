@@ -82,17 +82,6 @@ class BackboneFactory:
             backbone = ResidualAttentionNet(
                 stage1_modules, stage2_modules, stage3_modules,
                 feat_dim, out_h, out_w)
-        elif self.backbone_type == 'AttentionNet_wj':
-            stage1_modules = self.backbone_param['stage1_modules'] # the number of attention modules in stage1.
-            stage2_modules = self.backbone_param['stage2_modules'] # the number of attention modules in stage2.
-            stage3_modules = self.backbone_param['stage3_modules'] # the number of attention modules in stage3.
-            image_size = self.backbone_param['image_size'] # input image size, e.g. 112.
-            feat_dim = self.backbone_param['feat_dim'] # dimension of the output features, e.g. 512.
-            out_h = self.backbone_param['out_h'] # height of the feature map before the final features.
-            out_w = self.backbone_param['out_w'] # width of the feature map before the final features.
-            backbone = AttentionNet(
-                stage1_modules, stage2_modules, stage3_modules,
-                image_size, feat_dim, out_h, out_w)
         elif self.backbone_type == 'TF-NAS':
             drop_ratio = self.backbone_param['drop_ratio'] # drop out ratio.
             out_h = self.backbone_param['out_h'] # height of the feature map before the final features.
