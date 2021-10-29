@@ -46,7 +46,7 @@ The models and training logs mentioned in our technical report are listed as fol
 
 | Setting | LFW | CPLFW | CALFW | AgeDb | MegaFace | Params | Macs | Models&Logs |
 | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
-| setting1 | 99.62 | 84.48 | 94.20 | 95.92 | 00.00 | 27.47M | 4.34G | [Google](https://drive.google.com/drive/folders/1v8G_y4JzoVaxXGlt3iLtd6TIk0GYwA2c?usp=sharing),[Baidu](https://pan.baidu.com/s/1RqBkIqd3zCdpUO50DHpOIw):bmpn |
+| setting1 | 99.62 | 84.48 | 94.20 | 95.92 | 91.72 | 27.47M | 4.34G | [Google](https://drive.google.com/drive/folders/1v8G_y4JzoVaxXGlt3iLtd6TIk0GYwA2c?usp=sharing),[Baidu](https://pan.baidu.com/s/1RqBkIqd3zCdpUO50DHpOIw):bmpn |
 | setting2 | 99.82 | 89.00 | 95.62 | 97.78 | 97.68 | 27.47M | 4.34G | [Google](https://drive.google.com/drive/folders/1s1O5YcoFFy5godV1velyIwq_CcXDXUrz?usp=sharing),[Baidu](https://pan.baidu.com/s/1W7LAAQ9jtA9jojpsrjI1Fg):8ecq |
 | setting3 | 99.87 | 88.57 | 95.56 | 97.90 | 97.83 | 27.47M | 4.34G | [Google](https://drive.google.com/drive/folders/1FzXobevacaQ-Y1NAhMjTKZCP3gu4I3ni?usp=sharing),[Baidu](https://pan.baidu.com/s/10Fhgn9fjjtqPLXgrYTaPlA):2d0c |  
     setting1 - image-size: 112, patch_size: 2, epoches: 18, lr: MultiStepLR, optimizer: SGD, head: avgpool  
