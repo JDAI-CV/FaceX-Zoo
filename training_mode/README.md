@@ -48,6 +48,7 @@ The models and training logs mentioned in our technical report are listed as fol
 | setting1 | 99.62 | 84.48 | 00.00 | 00.00 | 00.00 | 1.19M | 227.57M | [Google](https://drive.google.com/drive/folders/1v8G_y4JzoVaxXGlt3iLtd6TIk0GYwA2c?usp=sharing),[Baidu](https://pan.baidu.com/s/1RqBkIqd3zCdpUO50DHpOIw):bmpn |
 | setting2 | 99.82 | 89.00 | 95.62 | 97.78 | 97.68 | 43.57M | 6.31G | [Google](https://drive.google.com/drive/folders/1s1O5YcoFFy5godV1velyIwq_CcXDXUrz?usp=sharing),[Baidu](https://pan.baidu.com/s/1W7LAAQ9jtA9jojpsrjI1Fg):8ecq |
 | setting3 | 99.87 | 88.57 | 95.56 | 97.90 | 97.83 | 71.14M | 12.33G | [Google](https://drive.google.com/drive/folders/1FzXobevacaQ-Y1NAhMjTKZCP3gu4I3ni?usp=sharing),[Baidu](https://pan.baidu.com/s/10Fhgn9fjjtqPLXgrYTaPlA):2d0c |
+
 setting1 - image-size: 112, patch_size: 2, epoches: 18, lr: MultiStepLR, optimizer: SGD, head: avgpool
 
 settint2 - image-size: 112, patch-size: 2, epoches: 18, lr: CosineLRScheduler, optimizer: AdamW, head: linear
