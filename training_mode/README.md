@@ -43,6 +43,7 @@ The models and training logs mentioned in our technical report are listed as fol
 * Params and Macs are computed by [THOP](https://github.com/Lyken17/pytorch-OpCounter).  
 * MX means mixed precision training by [apex](https://github.com/nvidia/apex).
 * Experiments of Swin Transformer
+
 | Setting | LFW | CPLFW | CALFW | AgeDb | MegaFace | Params | Macs | Models&Logs |
 | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
 | setting1 | 99.62 | 84.48 | 00.00 | 00.00 | 00.00 | 1.19M | 227.57M | [Google](https://drive.google.com/drive/folders/1v8G_y4JzoVaxXGlt3iLtd6TIk0GYwA2c?usp=sharing),[Baidu](https://pan.baidu.com/s/1RqBkIqd3zCdpUO50DHpOIw):bmpn |
