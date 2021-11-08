@@ -29,7 +29,7 @@ class HeadFactory:
     def __init__(self, head_type, head_conf_file):
         self.head_type = head_type
         with open(head_conf_file) as f:
-            head_conf = yaml.load(f)
+            head_conf = yaml.load(f, Loader=yaml.FullLoader)
             self.head_param = head_conf[head_type]
         print('head param:')
         print(self.head_param)

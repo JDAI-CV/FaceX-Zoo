@@ -1,6 +1,5 @@
 MobileFaceNet:
     feat_dim: 512
-    #out_h: 4
     out_h: 7
     out_w: 7
 
@@ -15,7 +14,7 @@ ResNet:
 EfficientNet:
     width: 1.0
     depth: 1.0
-    image_size: 110
+    image_size: 112
     drop_ratio: 0.2
     out_h: 7
     out_w: 7
@@ -26,7 +25,7 @@ HRNet:
   out_h: 7
   out_w: 7
   feat_dim: 512
-  IMAGE_SIZE:
+  IMAGE_SIZE: 
     - 112
     - 112
   EXTRA:
@@ -88,8 +87,8 @@ GhostNet:
 
 AttentionNet:
     stage1_modules: 1
-    stage2_modules: 2
-    stage3_modules: 3
+    stage2_modules: 1
+    stage3_modules: 1
     feat_dim: 512
     out_h: 7
     out_w: 7
@@ -119,6 +118,13 @@ ReXNet:
     feat_dim: 512
     dropout_ratio: 0.2
 
+LightCNN:
+    depth: 29
+    out_h: 7
+    out_w: 7
+    feat_dim: 512
+    dropout_ratio: 0.2
+
 RepVGG:
     blocks1: 4
     blocks2: 6
@@ -131,3 +137,22 @@ RepVGG:
     out_h: 7
     out_w: 7
     feat_dim: 512
+SwinTransformer:
+    img_size: 224
+    patch_size: 4
+    in_chans: 3
+    embed_dim: 96
+    depths:
+    - 2
+    - 2
+    - 18
+    - 2
+    num_heads:
+    - 3
+    - 6
+    - 12
+    - 24
+    window_size: 7
+    mlp_ratio: 4.0
+    drop_rate: 0.0
+    drop_path_rate: 0.3
