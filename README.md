@@ -10,6 +10,7 @@ About the name:
 ![image](data/images/arch.jpg)
 
 # What's New
+- [Oct. 2021] [Swin Transformer](https://arxiv.org/pdf/2103.14030.pdf) for face recognition is supported now! We get a quite promising accuracy of 98.17 in MegaFace rank1 protocol with Swin-S, It's the best accuracy in our setting. For more results, pretrained models and logs please refer to the tables in [3.1 Experiments of SOTA backbones](training_mode/README.md). You can run train.sh in [swin_training](training_mode/swin_training) to train your face recognition model with Swin Transformer. Be careful that the input size for Swin Transformer is 224*224 but not 112*112 and we use Adamw+CosineLRScheduler to optimize it instead of SGD+MultiStepLR for other backbones.
 - [Sep. 2021] We provide a [Dockfile](docker/Dockerfile) to buid the docker image of this project.
 - [Aug. 2021] [RepVGG](https://arxiv.org/pdf/2101.03697.pdf) has been added to the backbones for face recognition, the performance of RepVGG_A0, B0, B1 can be found in [3.1 Experiments of SOTA backbones](training_mode).
 - [Jul. 2021] A method for facial expression recognition named [DMUE](https://openaccess.thecvf.com/content/CVPR2021/papers/She_Dive_Into_Ambiguity_Latent_Distribution_Mining_and_Pairwise_Uncertainty_Estimation_CVPR_2021_paper.pdf) has been accepted by CVPR2021, and all codes have been released [here](addition_module/DMUE).
