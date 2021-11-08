@@ -36,12 +36,22 @@ The models and training logs mentioned in our technical report are listed as fol
 | [Attention-92(MX)](https://arxiv.org/abs/1704.06904)    | 99.82 | 90.33 | 95.88 | 98.08 | 98.09 | 134.56M | 10.62G | [Google](https://drive.google.com/drive/folders/1h_meJetsaVUm-37Wqo-o3ed9lyWcS8-B?usp=sharing),[Baidu](https://pan.baidu.com/s/1Vp6g_bS_2uBJ2OkHNzAxeQ):3ura |
 | [ResNeSt50](https://hangzhang.org/files/resnest.pdf)    | 99.80 | 89.98 | 95.55 | 97.98 | 97.08 | 76.79M | 5.55G | [Google](https://drive.google.com/file/d/1v9waQnoQnniv8GdXHpiEUm148IRbJ9-P/view?usp=sharing),[Baidu]():3ura |
 | [ReXNet_1.0](https://arxiv.org/pdf/2007.00992.pdf)    | 99.65 | 84.68 | 94.58 | 96.70 | 93.17 | 15.20M | 429.64M | [Google](https://drive.google.com/drive/folders/1bybc4psUaGF-4ucXoW3aloLOayCDs25U?usp=sharing),[Baidu]():3ura |
-| [RepVGG_A0](https://arxiv.org/pdf/2101.03697.pdf)    | 99.77 | 85.43 | 94.88 | 96.97 | 94.40 | 39.94M | 1.55G | [Google](),[Baidu](https://pan.baidu.com/s/1uUd6Uv2Jg8VjPtdHN-H-0g):gdsf |
-| [RepVGG_B0](https://arxiv.org/pdf/2101.03697.pdf)    | 99.72 | 86.77 | 95.17 | 97.57 | 95.75 | 46.65M | 3.44G | [Google](),[Baidu](https://pan.baidu.com/s/1cJ-O67cCTzOSriIOWBnagg):ip68 |
-| [RepVGG_B1](https://arxiv.org/pdf/2101.03697.pdf)    | 99.82 | 87.55 | 95.50 | 97.78 | 96.74 | 106.75M | 13.21G | [Google](),[Baidu](https://pan.baidu.com/s/1OOdwPajSGM6Greandy-gow):b60b |
+| [RepVGG_A0](https://arxiv.org/pdf/2101.03697.pdf)    | 99.77 | 85.43 | 94.88 | 96.97 | 94.40 | 39.94M | 1.55G | [Google](https://drive.google.com/drive/folders/1p6zTJNqzSvNq0JeT0BC9iT60lljIXUZ6?usp=sharing),[Baidu](https://pan.baidu.com/s/1uUd6Uv2Jg8VjPtdHN-H-0g):gdsf |
+| [RepVGG_B0](https://arxiv.org/pdf/2101.03697.pdf)    | 99.72 | 86.77 | 95.17 | 97.57 | 95.75 | 46.65M | 3.44G | [Google](https://drive.google.com/drive/folders/1ueiMzZ0SFtMoH1rECDKYcUc1mjbXMFYF?usp=sharing),[Baidu](https://pan.baidu.com/s/1cJ-O67cCTzOSriIOWBnagg):ip68 |
+| [RepVGG_B1](https://arxiv.org/pdf/2101.03697.pdf)    | 99.82 | 87.55 | 95.50 | 97.78 | 96.74 | 106.75M | 13.21G | [Google](https://drive.google.com/drive/folders/1SskjaThUZjQTI_IQ4MPoASGgomKbtaF7?usp=sharing),[Baidu](https://pan.baidu.com/s/1OOdwPajSGM6Greandy-gow):b60b |
 * MegaFace means MegaFace rank1 accuracy.  
 * Params and Macs are computed by [THOP](https://github.com/Lyken17/pytorch-OpCounter).  
 * MX means mixed precision training by [apex](https://github.com/nvidia/apex).
+* Experiments of Swin Transformer
+
+| Setting | LFW | CPLFW | CALFW | AgeDb | MegaFace | Params | Macs | Models&Logs |
+| :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
+| setting1 | 99.62 | 84.48 | 94.20 | 95.92 | 91.72 | 27.47M | 4.34G | [Google](https://drive.google.com/drive/folders/1v8G_y4JzoVaxXGlt3iLtd6TIk0GYwA2c?usp=sharing),[Baidu](https://pan.baidu.com/s/1RqBkIqd3zCdpUO50DHpOIw):bmpn |
+| setting2 | 99.82 | 89.00 | 95.62 | 97.78 | 97.68 | 27.47M | 4.34G | [Google](https://drive.google.com/drive/folders/1s1O5YcoFFy5godV1velyIwq_CcXDXUrz?usp=sharing),[Baidu](https://pan.baidu.com/s/1W7LAAQ9jtA9jojpsrjI1Fg):8ecq |
+| setting3 | 99.87 | 88.57 | 95.56 | 97.90 | 97.83 | 27.47M | 4.34G | [Google](https://drive.google.com/drive/folders/1FzXobevacaQ-Y1NAhMjTKZCP3gu4I3ni?usp=sharing),[Baidu](https://pan.baidu.com/s/10Fhgn9fjjtqPLXgrYTaPlA):2d0c |  
+    setting1 - image-size: 112, patch_size: 2, epoches: 18, lr: MultiStepLR, optimizer: SGD, head: avgpool  
+    settint2 - image-size: 112, patch-size: 2, epoches: 18, lr: CosineLRScheduler, optimizer: AdamW, head: linear  
+    settint3 - image-size: 224, patch-size: 4, epoches: 18, lr: CosineLRScheduler, optimizer: AdamW, head: linear  
 
 ### 3.2 Experiments of SOTA heads
 | Supervisory Head | LFW | CPLFW | CALFW | AgeDb | MegaFace_rank1 | Models&Logs |

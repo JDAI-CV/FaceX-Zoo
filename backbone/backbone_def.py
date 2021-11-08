@@ -156,7 +156,7 @@ class BackboneFactory:
                                        drop_path_rate=drop_path_rate,
                                        ape=False,
                                        patch_norm=True,
-                                       use_checkpoint=False)            
+                                       use_checkpoint=False)
         else:
             pass
         return backbone

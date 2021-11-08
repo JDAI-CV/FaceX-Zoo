@@ -137,6 +137,7 @@ RepVGG:
     out_h: 7
     out_w: 7
     feat_dim: 512
+
 SwinTransformer:
     img_size: 224
     patch_size: 4
