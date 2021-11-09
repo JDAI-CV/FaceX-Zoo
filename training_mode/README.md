@@ -39,8 +39,8 @@ The models and training logs mentioned in our technical report are listed as fol
 | [RepVGG_A0](https://arxiv.org/pdf/2101.03697.pdf)    | 99.77 | 85.43 | 94.88 | 96.97 | 94.40 | 39.94M | 1.55G | [Google](https://drive.google.com/drive/folders/1p6zTJNqzSvNq0JeT0BC9iT60lljIXUZ6?usp=sharing),[Baidu](https://pan.baidu.com/s/1uUd6Uv2Jg8VjPtdHN-H-0g):gdsf |
 | [RepVGG_B0](https://arxiv.org/pdf/2101.03697.pdf)    | 99.72 | 86.77 | 95.17 | 97.57 | 95.75 | 46.65M | 3.44G | [Google](https://drive.google.com/drive/folders/1ueiMzZ0SFtMoH1rECDKYcUc1mjbXMFYF?usp=sharing),[Baidu](https://pan.baidu.com/s/1cJ-O67cCTzOSriIOWBnagg):ip68 |
 | [RepVGG_B1](https://arxiv.org/pdf/2101.03697.pdf)    | 99.82 | 87.55 | 95.50 | 97.78 | 96.74 | 106.75M | 13.21G | [Google](https://drive.google.com/drive/folders/1SskjaThUZjQTI_IQ4MPoASGgomKbtaF7?usp=sharing),[Baidu](https://pan.baidu.com/s/1OOdwPajSGM6Greandy-gow):b60b |
-| [Swin-T](https://arxiv.org/pdf/2103.14030.pdf)    | 99.87 | 88.57 | 95.56 | 97.90 | 97.83 | 46.74M | 4.37G | [Google](),[Baidu](https://pan.baidu.com/s/1O6VIoLbQxPDxAPqc5ec7-A):17ww |
-| [Swin-S](https://arxiv.org/pdf/2103.14030.pdf)    | 99.85 | 90.03 | 95.92 | 98.05 | 98.17 | 68.01M | 8.53G | [Google](),[Baidu](https://pan.baidu.com/s/1mTdbdTgEMEPgHCipT6Mb_Q):hhre |
+| [Swin-T](https://arxiv.org/pdf/2103.14030.pdf)    | 99.87 | 88.57 | 95.56 | 97.90 | 97.83 | 46.74M | 4.37G | [Google](https://drive.google.com/drive/folders/1gngcXFxVnmw01f9p7lN89I4bJEEU1uz3?usp=sharing),[Baidu](https://pan.baidu.com/s/1O6VIoLbQxPDxAPqc5ec7-A):17ww |
+| [Swin-S](https://arxiv.org/pdf/2103.14030.pdf)    | 99.85 | 90.03 | 95.92 | 98.05 | 98.17 | 68.01M | 8.53G | [Google](https://drive.google.com/drive/folders/1v0tyEKZ7YZacB2vjL7Y40m6XUf-dhyrv?usp=sharing),[Baidu](https://pan.baidu.com/s/1mTdbdTgEMEPgHCipT6Mb_Q):hhre |
 * MegaFace means MegaFace rank1 accuracy.  
 * Params and Macs are computed by [THOP](https://github.com/Lyken17/pytorch-OpCounter).  
 * MX means mixed precision training by [apex](https://github.com/nvidia/apex).
