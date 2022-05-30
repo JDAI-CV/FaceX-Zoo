@@ -98,9 +98,8 @@ if __name__ == '__main__':
 
 
             seg_probs = seg_logits.softmax(dim=1)  # nfaces x nclasses x h x w
-    #         show_bhw(seg_probs.argmax(dim=1).float()/seg_logits.size(1)*255)
-
-            show_bchw(draw_bchw(image, faces))            
+            show_bchw(draw_bchw(image, faces))  
+            
     except Exception as e:
         logger.error('Parsing failed!')
         logger.error(e)
