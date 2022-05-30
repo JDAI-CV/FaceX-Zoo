@@ -104,21 +104,6 @@ def _draw_hwc(image: torch.Tensor, data: Dict[str, torch.Tensor]):
     h, w, _ = image.shape
 
     for tag, batch_content in data.items():
-#         if tag == 'rects':
-#             for content in batch_content:
-#                 x1, y1, x2, y2 = [int(v) for v in content]
-#                 y1, y2 = [max(min(v, h-1), 0) for v in [y1, y2]]
-#                 x1, x2 = [max(min(v, w-1), 0) for v in [x1, x2]]
-#                 for xx1, yy1, xx2, yy2 in [
-#                     [x1, y1, x2, y1],
-#                     [x1, y2, x2, y2],
-#                     [x1, y1, x1, y2],
-#                     [x2, y1, x2, y2]
-#                 ]:
-#                     rr, cc, val = line_aa(yy1, xx1, yy2, xx2)
-#                     val = val[:, None][:, [0, 0, 0]]
-#                     image[rr, cc] = image[rr, cc] * (1.0-val) + val * 255
-
         if tag == 'points':
             for content in batch_content:
                 # content: npoints x 2

@@ -49,9 +49,7 @@ class FaceParsingModelHandler(BaseModelHandler):
     def __init__(self, model=None, device=None, cfg=None):
         super().__init__(model, device, cfg)
         
-#         self.conf_name = conf_name
         self.model = model.to(self.device)
-#         self.eval()
     def _preprocess(self, image, face_nums):
         """Preprocess the image, such as standardization and other operations.
 
@@ -80,7 +78,7 @@ class FaceParsingModelHandler(BaseModelHandler):
         setting = pretrain_settings['lapa/448']
         images = image_pre.float() / 255.0
         _, _, h, w = images.shape
-        simages = images.to(self.device)#data_pre['image_ids']
+        simages = images.to(self.device)
         matrix = setting['get_matrix_fn'](landmarks.to(self.device))
         grid = setting['get_grid_fn'](matrix=matrix, orig_shape=(h, w))
         inv_grid = setting['get_inv_grid_fn'](matrix=matrix, orig_shape=(h, w))
