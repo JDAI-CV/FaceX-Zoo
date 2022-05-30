@@ -23,6 +23,7 @@ python api_usage/face_alignment.py  # Get 106 landmark of a face
 python api_usage/face_crop.py  # Get croped face from a image
 python api_usage/face_feature.py  # Get features of a face
 python api_usage/face_pipline.py # Run face recognition pipeline
+python api_usage/face_parsing.py # Run face parsing pipeline
 ```
 The results will be saved at [api_usage/temp](api_usage/temp)
 ## Update the models  

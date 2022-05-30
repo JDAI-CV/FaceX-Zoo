@@ -1,0 +1,5 @@
+*__pycache__
+*.ipynb_checkpoints
+*face_sdk/logs/
+*.pt
+face_sdk/models/face_parsing/face_parsing_1.0/face_parsing.farl.lapa.main_ema_136500_jit191.pt

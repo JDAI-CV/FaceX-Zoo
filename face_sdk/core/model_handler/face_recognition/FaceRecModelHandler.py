@@ -44,7 +44,7 @@ class FaceRecModelHandler(BaseModelHandler):
         image = torch.unsqueeze(image, 0)
         image = image.to(self.device)
         with torch.no_grad():
-            feature = self.model(image).cpu().numpy()
+            feature = self.fds(image).cpu().numpy()
         feature = np.squeeze(feature)
         return feature
 
