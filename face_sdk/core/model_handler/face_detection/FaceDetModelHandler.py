@@ -20,7 +20,7 @@ from utils.BuzException import *
 
 class FaceDetModelHandler(BaseModelHandler):
     """Implementation of face detection model handler
-    
+
     Attributes:
         model: the face detection model.
         device: use cpu or gpu to process.
@@ -35,7 +35,7 @@ class FaceDetModelHandler(BaseModelHandler):
         
     def inference_on_image(self, image):
         """Get the inference of the image and process the inference result.
-        
+
         Returns:
             A numpy array, the shape is N * (x, y, w, h, confidence), 
             N is the number of detection box.
@@ -57,7 +57,7 @@ class FaceDetModelHandler(BaseModelHandler):
 
     def _preprocess(self, image):
         """Preprocess the image, such as standardization and other operations.
-        
+
         Returns:
             A numpy array list, the shape is channel * h * w.
             A tensor, the shape is 4.
@@ -75,7 +75,7 @@ class FaceDetModelHandler(BaseModelHandler):
         """Postprecess the prediction result.
         Decode detection result, set the confidence threshold and do the NMS
         to keep the appropriate detection box. 
-        
+
         Returns:
             A numpy array, the shape is N * (x, y, w, h, confidence), 
             N is the number of detection box.
@@ -116,7 +116,7 @@ class FaceDetModelHandler(BaseModelHandler):
             priors (tensor): Prior boxes in center-offset form.
                 Shape: [num_priors,4].
             variances: (list[float]) Variances of priorboxes
-        
+
         Return:
             decoded bounding box predictions
         """
@@ -130,7 +130,7 @@ class FaceDetModelHandler(BaseModelHandler):
     # Adapted from https://github.com/biubug6/Pytorch_Retinaface
     def py_cpu_nms(self, dets, thresh):
         """Python version NMS.
-        
+
         Returns:
             The kept index after NMS.
         """
@@ -160,7 +160,7 @@ class FaceDetModelHandler(BaseModelHandler):
 # Adapted from https://github.com/biubug6/Pytorch_Retinafacey
 class PriorBox(object):
     """Compute the suitable parameters of anchors for later decode operation
-    
+
     Attributes:
         cfg(dict): testing config.
         image_size(tuple): the input image size.
