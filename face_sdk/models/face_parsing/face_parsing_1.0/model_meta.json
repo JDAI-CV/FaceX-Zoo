@@ -1,0 +1,8 @@
+{
+    "model_type" : "face_parsing.farl.lapa",
+    "model_info" : "some model info",
+    "model_file" : "face_parsing.farl.lapa.main_ema_136500_jit191.pt",
+    "release_date" : "20220226",
+    "input_height" : 448,
+    "input_width" : 448
+}
