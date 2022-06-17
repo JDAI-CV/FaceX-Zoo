@@ -14,6 +14,8 @@ A simple yet fully functional face SDK written in python, which acts as a demo t
   ![image1](../data/images/sample_non_mask.jpg)
 ## Masked faces  
   ![image2](../data/images/sample_mask.jpg)
+# Some Results by FaRL
+![image](../data/images/face_parsing.jpg)
 
 # Getting Started
 ## Run the examples
@@ -24,6 +26,7 @@ python api_usage/face_crop.py  # Get croped face from a image
 python api_usage/face_feature.py  # Get features of a face
 python api_usage/face_pipline.py # Run face recognition pipeline
 python api_usage/face_parsing.py # Run face parsing pipeline
+python api_usage/face_parsing.py # Run face parsing pipeline, (pytorch >= 1.9.1)
 ```
 The results will be saved at [api_usage/temp](api_usage/temp)
 ## Update the models  
