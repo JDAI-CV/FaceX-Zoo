@@ -14,8 +14,8 @@ A simple yet fully functional face SDK written in python, which acts as a demo t
   ![image1](../data/images/sample_non_mask.jpg)
 ## Masked faces  
   ![image2](../data/images/sample_mask.jpg)
-# Some Results by FaRL
-![image](../data/images/face_parsing.jpg)
+## Some Results by FaRL
+  <img src="../data/images/face_parsing.jpg"  width=68% />
 
 # Getting Started
 ## Run the examples
