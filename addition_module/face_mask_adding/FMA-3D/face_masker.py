@@ -55,7 +55,7 @@ class PRN:
         cropped_image = warp(image, tform.inverse, output_shape=(self.resolution, self.resolution))
         cropped_image = np.transpose(cropped_image[np.newaxis, :,:,:], (0, 3, 1, 2)).astype(np.float32)
         cropped_image = torch.from_numpy(cropped_image)
-        if torch.cuda.is_available:
+        if torch.cuda.is_available():
             cropped_image = cropped_image.cuda()
         with torch.no_grad():
             cropped_pos = self.net(cropped_image)

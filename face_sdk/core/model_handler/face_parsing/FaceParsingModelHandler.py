@@ -1,3 +1,9 @@
+"""
+@author: fengyu, wangjun
+@date: 20220620
+@contact: fengyu_cnyc@163.com
+"""
+
 # based on:
 # https://github.com/FacePerceiver/facer/blob/main/facer/face_parsing/farl.py
 import functools
