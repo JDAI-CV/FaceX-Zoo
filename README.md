@@ -51,4 +51,4 @@ Please consider citing our paper in your publications if the project helps your 
   year = {2021}
 }
 ```
-If you have any questions, please contact with Jun Wang (wangjun492@jd.com), Yinglu Liu (liuyinglu1@jd.com), [Yibo Hu](https://aberhu.github.io/) (huyibo6@jd.com) or [Hailin Shi](https://sites.google.com/view/hailin-shi) (shihailin@jd.com).
+If you have any questions, please contact with Jun Wang (wangjun492@jd.com), Yinglu Liu (liuyinglu1@jd.com), [Yibo Hu](https://aberhu.github.io/) (huyibo6@jd.com),[Hailin Shi](https://sites.google.com/view/hailin-shi) (shihailin@jd.com) and [Wu Liu](drliuwu.com)(liuwu1@jd.com).
