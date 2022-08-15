@@ -50,7 +50,6 @@ class FaceAlignModelHandler(BaseModelHandler):
         landmarks = self._postprocess(landmarks_normal)
         return landmarks
 
-    #Adapted from https://github.com/Hsintao/pfld_106_face_landmarks/blob/master/data/prepare.py
     def _preprocess(self, image, det):
         """Preprocess the input image, cutting the input image through the face detection information.
         Using the face detection result(dets) to get the face position in the input image.
@@ -67,33 +66,33 @@ class FaceAlignModelHandler(BaseModelHandler):
         self.image_org = image.copy()
         img = np.float32(img)
 
-        xy = np.array([det[0], det[1]])
-        zz = np.array([det[2], det[3]])
-        wh = zz - xy + 1
-        center = (xy + wh / 2).astype(np.int32)
-        boxsize = int(np.max(wh) * 1.2)
-        xy = center - boxsize // 2
+        xy_temp = np.array([det[0], det[1]])
+        zz_temp = np.array([det[2], det[3]])
+        wh = zz_temp - xy_temp + 1
+        center_point = (xy_temp + wh / 2).astype(np.int32)
+        boxsize_large = int(np.max(wh) * 1.2)
+        xy = center_point - boxsize_large // 2
         self.xy = xy
-        self.boxsize = boxsize
+        self.boxsize = boxsize_large
         x1, y1 = xy
-        x2, y2 = xy + boxsize
-        height, width, _ = img.shape
+        x2, y2 = xy + boxsize_large
+        h, w, _ = img.shape
         dx = max(0, -x1)
         dy = max(0, -y1)
         x1 = max(0, x1)
         y1 = max(0, y1)
-        edx = max(0, x2 - width)
-        edy = max(0, y2 - height)
-        x2 = min(width, x2)
-        y2 = min(height, y2)
-        imageT = image[y1:y2, x1:x2]
+        edx = max(0, x2 - w)
+        edy = max(0, y2 - h)
+        x2 = min(w, x2)
+        y2 = min(h, y2)
+        image_target = image[y1:y2, x1:x2]
         if dx > 0 or dy > 0 or edx > 0 or edy > 0:
-            imageT = cv2.copyMakeBorder(
-                imageT, dy, edy, dx, edx, cv2.BORDER_CONSTANT, 0)
+            image_target = cv2.copyMakeBorder(
+                image_target, dy, edy, dx, edx, cv2.BORDER_CONSTANT, 0)
 
-        imageT = cv2.resize(imageT, (self.img_size, self.img_size))
+        image_target = cv2.resize(image_target, (self.img_size, self.img_size))
         t = transforms.Compose([transforms.ToTensor()])
-        img_after = t(imageT)
+        img_after = t(image_target)
         return img_after
 
     def _postprocess(self, landmarks_normal):
