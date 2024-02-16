@@ -26,6 +26,41 @@ About the name:
 * pytorch >= 1.1.0
 * torchvision >= 0.3.0 
 
+# Installation Instructions
+
+## 1. Clone the Repository
+
+```bash
+git clone https://github.com/your-username/FaceX-Zoo.git
+cd FaceX-Zoo
+```
+
+## 2. Set Up Virtual Environment 
+
+```bash
+python -m venv face-env
+```
+
+Activate on Linux/MacOS:
+```bash
+source face-env/bin/activate
+```
+
+Activate on Windows:
+```bash
+face-env\Scripts\activate
+```
+## 3. Install Dependencies
+```bash
+pip install -r requirements.txt
+```
+## 4. Check Installation
+```bash
+python -c "import facex_zoo"
+```
+
+
+
 # Model Training  
 See [README.md](training_mode/README.md) in [training_mode](training_mode), currently support conventional training and [semi-siamese training](https://arxiv.org/abs/2007.08398).
 # Model Evaluation  
