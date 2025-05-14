@@ -1,0 +1,5 @@
+opencv-python
+torch
+torchvision
+scikit-image
+PySide6
