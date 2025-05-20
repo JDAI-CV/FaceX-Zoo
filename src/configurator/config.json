@@ -1,0 +1,19 @@
+{
+    "frame_crop": {
+        "x": 0,
+        "y": 0,
+        "width": 1400,
+        "height": 1200
+    },
+    "detection": {
+        "confidence_threshold": 0.75
+    },
+    "alert": {
+        "show_rectangle": true,
+        "show_alert": true,
+        "play_sound": false
+    },
+    "overlay": {
+        "show_lines": true
+    }
+}
